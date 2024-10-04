@@ -1,9 +1,13 @@
+import Header from "../../components/header/header";
 import "./events.css";
 
 function Events() {
   return (
-    <h1>Events</h1>
+    <>
+      <Header />
+      <h1>Events</h1>
+    </>
   );
-};
+}
 
 export default Events;

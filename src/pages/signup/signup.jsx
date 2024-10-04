@@ -1,13 +1,13 @@
 import Header from "../../components/header/header";
-import "./login.css";
+import "./signup.css";
 
-function Login() {
+function Signup() {
   return (
     <>
       <Header />
-      <h1>Login</h1>
+      <h1>Signup</h1>
     </>
   );
-}
+};
 
-export default Login;
+export default Signup;

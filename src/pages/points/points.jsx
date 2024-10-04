@@ -1,9 +1,13 @@
+import Header from "../../components/header/header";
 import "./points.css";
 
 function Points() {
   return (
-    <h1>Points</h1>
+    <>
+      <Header />
+      <h1>Points</h1>
+    </>
   );
-};
+}
 
 export default Points;
