@@ -6,7 +6,7 @@ function Header() {
   return (
     <header>
       <nav className="border-b-2 border-#E0E0E0 px-4 lg:px-6 py-4">
-        <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
+        <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-2xl">
           <a href="/" className="flex items-center">
             <img src={logo} className="mr-3 h-6 sm:h-9" alt="EcoMar Logo" />
             <span className="self-center text-[24px] font-bold whitespace-nowrap text-black">
