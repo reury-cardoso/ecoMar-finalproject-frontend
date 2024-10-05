@@ -4,7 +4,7 @@ import "./admin.css";
 function Admin() {
   return (
     <>
-      <Header />
+      <Header/>
       <h1>Admin</h1>
     </>
   );
