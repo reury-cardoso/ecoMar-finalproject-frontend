@@ -1,10 +1,12 @@
-/* eslint-disable react/prop-types */
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import AdminDataTableBodyPoints from "./points/adminDataTableBodyPoints";
 import AdminDataTableBodyUsers from "./users/adminDataTableBodyUsers";
 import AdminDataTableBodyEvents from "./events/adminDataTableBodyEvents";
+import { useContext } from 'react';
+import { CurrentSectionContext } from "../../context/currentSectionContext";
 
-function AdminRightSection({ currentSection }) {
+function AdminRightSection() {
+  const { currentSection } = useContext(CurrentSectionContext);
 
   const headNames = currentSection === "users" ? ["Nome", "Email", "Telefone", "Tipo"] : currentSection === "events" ? ["Nome", "Descricao", "Data", "Local", "Tipo", "Status"] : ["Nome", "Localização", "Tipo", "Horário", "Status"];
 
@@ -23,7 +25,7 @@ function AdminRightSection({ currentSection }) {
     {
       id: 1,
       nome: "Dia da Terra",
-      descricao: "Dia da Terra é um evento anual celebrado em todo o mundo no dia 22 de abril para demonstrar apoio à proteção ambiental.",
+      descricao: "Dia da Terra é um",
       data: "2024-04-22",
       local: "São Paulo",
       tipo_residuo: "Papel, Plástico",
@@ -35,7 +37,7 @@ function AdminRightSection({ currentSection }) {
     {
       id: 2,
       nome: "Semana do Meio Ambiente",
-      descricao: "A Semana do Meio Ambiente é um evento anual que tem como objetivo promover atividades de conscientização e preservação do meio ambiente.",
+      descricao: "A Semana do Meio ambiente.",
       data: "2024-06-05",
       local: "Rio de Janeiro",
       tipo_residuo: "Metal, Vidro",
@@ -47,7 +49,7 @@ function AdminRightSection({ currentSection }) {
     {
       id: 3,
       nome: "Dia Mundial do Meio Ambiente",
-      descricao: "O Dia Mundial do Meio Ambiente é comemorado em 5 de junho e tem como objetivo principal chamar a atenção de todas as esferas da população para os problemas ambientais.",
+      descricao: "",
       data: "2024-06-05",
       local: "Belo Horizonte",
       tipo_residuo: "Orgânico",
@@ -120,7 +122,7 @@ function AdminRightSection({ currentSection }) {
 
   return (
     <div id="rightSectionHeader" className="w-[84%] bg-[#E0E5EC] p-[24px] ml-auto">
-      <h1 className="font-bold text-[25px] text-gray-900">Pontos</h1>
+      <h1 className="font-bold text-[25px] text-gray-900">{currentSection === "users" ? "Usuários" : currentSection === "events" ? "Eventos" : "Pontos de Coleta"}</h1>
       <div className="w-full my-[15px] bg-white border border-gray-400 rounded-md">
         <div className="flex items-center  px-4 py-2">
           <MagnifyingGlassIcon className="h-5 w-5 text-gray-600" />{" "}
