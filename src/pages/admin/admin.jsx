@@ -9,7 +9,7 @@ function Admin() {
       <Header isLogged={true}/>
       <section id="sectionMain" className="w-full min-h-[89.5vh] flex">
         <AdminLeftSection />
-        <AdminRightSection />
+        <AdminRightSection currentSection={"users"} />
       </section>
     </>
   );

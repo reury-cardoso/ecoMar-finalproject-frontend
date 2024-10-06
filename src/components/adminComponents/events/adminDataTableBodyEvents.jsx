@@ -9,9 +9,10 @@ function AdminDataTableBodyEvents({ dataTable }) {
   return (
     <tr className="border-b border-gray-300 hover:bg-gray-100">
       <td className="py-3 px-6 text-left">{dataTable.nome}</td>
-      <td className="py-3 px-6 text-left">{dataTable.localizacao}</td>
+      <td className="py-3 px-6 text-left">{dataTable.descricao}</td>
+      <td className="py-3 px-6 text-left">{dataTable.data}</td>
+      <td className="py-3 px-6 text-left">{dataTable.local}</td>
       <td className="py-3 px-6 text-left">{dataTable.tipo_residuo}</td>
-      <td className="py-3 px-6 text-left">{dataTable.horario_funcionamento}</td>
       <td className="py-3 px-6 text-left">
         <span className={`${statusColor} py-1 px-3 rounded-full text-xs`}>
         {dataTable.status}
