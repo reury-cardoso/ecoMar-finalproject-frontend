@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import "./header.css";
-import logo from "../../../public/marreco.svg";
+import logo from "/marreco.svg";
 import LoginButton from "./loginButton/loginButton";
 
 function Header({ isLogged }) {
@@ -17,7 +17,7 @@ function Header({ isLogged }) {
           <div className="flex items-center lg:order-2">
             {isLogged ? (
               <div className="flex items-center gap-2">
-                <img className="h-[40px] size-9" src="https://api.dicebear.com/9.x/initials/svg?seed=Ana Dias&radius=50&backgroundType=gradientLinear&fontFamily=Arial&fontWeight=600" alt="" />
+                <img className="h-[40px] size-9" src="https://api.dicebear.com/9.x/initials/svg?seed=Admin&radius=50&backgroundColor=00acc1,039be5,00897b,1e88e5,3949ab&backgroundType=gradientLinear,solid&fontFamily=Arial&fontSize=50" alt="" />
                 <div>
                   <span className="font-bold">Admin</span>
                   <p className="text-[#5F5E61] text-[12px]">Bem-vindo(a)</p>
