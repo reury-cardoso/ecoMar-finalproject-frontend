@@ -1,9 +1,36 @@
 /* eslint-disable react/prop-types */
+import { useState, useEffect, useRef } from "react";
+import AdminMenu from "../adminMenu/AdminMenu";
 import "./header.css";
 import logo from "/marreco.svg";
 import LoginButton from "./loginButton/loginButton";
 
 function Header({ isLogged }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef(null);
+
+  const toggleMenu = () => {
+    setIsOpen((prevState) => !prevState);
+  };
+
+  const handleClickOutside = (event) => {
+    if (menuRef.current && !menuRef.current.contains(event.target)) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+    
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
+
   return (
     <header>
       <nav className="border-b-2 border-#E0E0E0 px-4 lg:px-6 py-4">
@@ -16,13 +43,25 @@ function Header({ isLogged }) {
           </a>
           <div className="flex items-center lg:order-2">
             {isLogged ? (
-              <div className="flex items-center gap-2">
-                <img className="h-[40px] size-9" src="https://api.dicebear.com/9.x/initials/svg?seed=Admin&radius=50&backgroundColor=00acc1,039be5,00897b,1e88e5,3949ab&backgroundType=gradientLinear,solid&fontFamily=Arial&fontSize=50" alt="" />
-                <div>
-                  <span className="font-bold">Admin</span>
-                  <p className="text-[#5F5E61] text-[12px]">Bem-vindo(a)</p>
+              <>
+                <div
+                  onClick={toggleMenu}
+                  className="flex items-center gap-2 cursor-pointer"
+                >
+                  <img
+                    className="h-[40px] size-9"
+                    src="https://api.dicebear.com/9.x/initials/svg?seed=Admin&radius=50&backgroundColor=00acc1,039be5,00897b,1e88e5,3949ab&backgroundType=gradientLinear,solid&fontFamily=Arial&fontSize=50"
+                    alt="Admin Avatar"
+                  />
+                  <div>
+                    <span className="font-bold">Admin</span>
+                    <p className="text-[#5F5E61] text-[12px]">Bem-vindo(a)</p>
+                  </div>
                 </div>
-              </div>
+                <div ref={menuRef} className="relative inline-block text-left">
+                  {isOpen && <AdminMenu/>}
+                </div>
+              </>
             ) : (
               <LoginButton />
             )}

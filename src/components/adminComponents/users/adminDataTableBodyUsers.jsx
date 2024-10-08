@@ -6,7 +6,7 @@ function AdminDataTableBodyUsers({ dataTable }) {
 
   return (
     <tr className="border-b border-gray-300 hover:bg-gray-100">
-      <td className="py-3 px-6 text-left">{dataTable.Nome}</td>
+      <td className="py-3 px-6 text-left">{dataTable.nome}</td>
       <td className="py-3 px-6 text-left">{dataTable.Email}</td>
       <td className="py-3 px-6 text-left">{dataTable.Telefone}</td>
       <td className="py-3 px-6 text-left">

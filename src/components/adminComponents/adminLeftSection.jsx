@@ -1,9 +1,12 @@
 import { MapPinIcon, UserGroupIcon, SpeakerWaveIcon } from "@heroicons/react/24/outline";
 import { useContext } from 'react';
 import { CurrentSectionContext } from "../../context/currentSectionContext";
+import { EventsContext } from "../../context/eventsContext";
 
 function AdminLeftSection() {
   const { currentSection, setCurrentSection } = useContext(CurrentSectionContext);
+  const { fetchEvents } = useContext(EventsContext);
+
 
   return (
     <div
@@ -20,7 +23,10 @@ function AdminLeftSection() {
         <span>Usuário</span>
       </div>
 
-      <div onClick={() => setCurrentSection('events')} className={`flex items-center gap-2 px-10 py-[.5rem] rounded-[8px] [transition:background-color_.3s] cursor-pointer  ${currentSection === "events" ? "!bg-[#0A2F51] !text-[#fff] hover:!bg-[#094883]" : "hover:bg-[#f5f5f5]"}`}>
+      <div onClick={() => {
+        fetchEvents();
+        setCurrentSection('events');
+        }} className={`flex items-center gap-2 px-10 py-[.5rem] rounded-[8px] [transition:background-color_.3s] cursor-pointer  ${currentSection === "events" ? "!bg-[#0A2F51] !text-[#fff] hover:!bg-[#094883]" : "hover:bg-[#f5f5f5]"}`}>
         <SpeakerWaveIcon className="size-6 " />
         <span>Eventos</span>
       </div>
