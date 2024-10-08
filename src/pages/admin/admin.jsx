@@ -4,6 +4,7 @@ import AdminRightSection from "../../components/adminComponents/adminRightSectio
 import CurrentSectionProvider from "../../context/currentSectionContext";
 import "./admin.css";
 import { EventsProvider } from "../../context/eventsContext";
+import { PointsProvider } from "../../context/PointsContext";
 
 function Admin() {
   return (
@@ -12,8 +13,10 @@ function Admin() {
       <CurrentSectionProvider>
         <section id="sectionMain" className="w-full min-h-[89.5vh] flex">
           <EventsProvider>
-            <AdminLeftSection />
-            <AdminRightSection />
+            <PointsProvider>
+              <AdminLeftSection />
+              <AdminRightSection />
+            </PointsProvider>
           </EventsProvider>
         </section>
       </CurrentSectionProvider>

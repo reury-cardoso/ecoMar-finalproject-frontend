@@ -17,7 +17,8 @@ export const EventsProvider = ({ children }) => {
     try {
       const response = await axios.get(`${baseUrl}/api/events`);
       setEvents(response.data);
-    } catch {
+    } catch(err) {
+      console.log(err);
       setError("Erro ao buscar eventos.");
     } finally {
       setLoading(false);
@@ -57,7 +58,7 @@ export const EventsProvider = ({ children }) => {
       fetchEvents();
     } catch {
       notify("Erro ao deletar evento.", "error");
-      setError("Erro ao deletar usuário.");
+      setError("Erro ao deletar evento.");
     }
   };
 

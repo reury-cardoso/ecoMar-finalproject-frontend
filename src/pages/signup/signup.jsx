@@ -1,6 +1,42 @@
+import { useState } from "react";
 import Header from "../../components/header/header";
+import { notify } from "../../components/notifications/notifications";
+import axios from "axios";
+
+const baseUrl = import.meta.env.VITE_URL_API;
 
 function Signup() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
+
+  async function handleSignup(e){
+    e.preventDefault();
+    
+    if(!name || !email || !phone || !password){
+      notify("Preencha todos os campos", "error");
+      return;
+    }
+
+    try {
+      await axios.post(`${baseUrl}/api/auth/register`, {
+        name,
+        email,
+        phone,
+        password
+      })
+
+      notify("Registrado com sucesso", "success");
+      const sleep = ms => new Promise(r => setTimeout(r, ms));
+      await sleep(3000)
+
+      window.location.href = "/login";
+    } catch {
+      notify("Erro ao registrar", "error");
+    }  
+  }
+  
   return (
     <>
       <Header />
@@ -29,6 +65,8 @@ function Signup() {
               <input
                 type="text"
                 placeholder="Nome"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 className="w-full bg-transparent focus:outline-none text-gray-700"
               />
             </div>
@@ -52,6 +90,8 @@ function Signup() {
               <input
                 type="email"
                 placeholder="E-mail"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="w-full bg-transparent focus:outline-none text-gray-700"
               />
             </div>
@@ -75,6 +115,8 @@ function Signup() {
               <input
                 type="tel"
                 placeholder="Telefone"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
                 className="w-full bg-transparent focus:outline-none text-gray-700"
               />
             </div>
@@ -98,11 +140,13 @@ function Signup() {
               <input
                 type="password"
                 placeholder="Senha"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="w-full bg-transparent focus:outline-none text-gray-700"
               />
             </div>
 
-            <button className="w-full bg-[#0A2F51] text-white py-3 rounded-lg hover:bg-[#0A2438] font-bold">
+            <button onClick={handleSignup} className="w-full bg-[#0A2F51] text-white py-3 rounded-lg hover:bg-[#0A2438] font-bold">
               Registrar
             </button>
           </form>

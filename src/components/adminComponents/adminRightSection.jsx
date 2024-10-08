@@ -4,11 +4,22 @@ import AdminDataTableBodyUsers from "./users/adminDataTableBodyUsers";
 import AdminDataTableBodyEvents from "./events/adminDataTableBodyEvents";
 import { useContext, useState } from "react";
 import { CurrentSectionContext } from "../../context/currentSectionContext";
-import { pontosDeColeta, usuarios } from "../../databaseEx.js";
 import { EventsContext } from "../../context/eventsContext.jsx";
+import { PointsContext } from "../../context/PointsContext.jsx";
+
+const usuarios = [
+  {
+    id: 1,
+    name: "João",
+    email: "exmma",
+    phone: "11 999999999",
+    type: "admin",
+  }
+]
 
 function AdminRightSection() {
   const { events } = useContext(EventsContext);
+  const { points } = useContext(PointsContext);
   const { currentSection } = useContext(CurrentSectionContext);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -35,7 +46,7 @@ function AdminRightSection() {
       ? usuarios
       : currentSection === "events"
       ? events
-      : pontosDeColeta;
+      : points;
 
   const filteredData = data.filter((item) => {
     const name = item.name || "";
@@ -80,7 +91,7 @@ function AdminRightSection() {
           </thead>
           <tbody className="text-gray-700 text-sm font-light">
             {filteredData.map((dataItem) => (
-              <ComponentTableBody key={dataItem.id} dataTable={dataItem} />
+              <ComponentTableBody key={dataItem.event_id ?? dataItem.point_id ?? dataItem.user_id} dataTable={dataItem} />
             ))}
           </tbody>
         </table>

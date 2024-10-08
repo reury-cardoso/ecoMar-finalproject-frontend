@@ -4,7 +4,7 @@ import EditDeleteButton from "../actionButtons/editDeleteButton";
 /* eslint-disable react/prop-types */
 function AdminDataTableBodyEvents({ dataTable }) {
   
-  const actionButtons = dataTable.status === "pending" ? <ApproveRejectButton idEvent={dataTable.event_id} /> : <EditDeleteButton idEvent={dataTable.event_id}/>;
+  const actionButtons = dataTable.status === "pending" ? <ApproveRejectButton theSection={"events"} idElement={dataTable.event_id} /> : <EditDeleteButton theSection={"events"} idElement={dataTable.event_id}/>;
   
   const statusColor = dataTable.status === "pending" ? "bg-yellow-200 text-yellow-800" : dataTable.status === "approved" ? "bg-green-200 text-green-800" : "bg-red-200 text-red-800";
 
