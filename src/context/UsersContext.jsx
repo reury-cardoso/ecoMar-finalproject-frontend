@@ -11,18 +11,18 @@ const authEx = {
   }
 }
 
-export const PointsContext = createContext();
+export const UsersContext = createContext();
 
-export const PointsProvider = ({ children }) => {
-  const [points, setPoints] = useState([]);
+export const UsersProvider = ({ children }) => {
+  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const fetchPoints = async () => {
+  const fetchUsers = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`${baseUrl}/api/points`);
-      setPoints(response.data);
+      const response = await axios.get(`${baseUrl}/api/auth/users`, authEx);
+      setUsers(response.data);
     } catch {
       setError("Erro ao buscar ponto de coleta.");
     } finally {
@@ -30,37 +30,37 @@ export const PointsProvider = ({ children }) => {
     }
   };
 
-  const addPoint = async (newPoint) => {
+  const addUser = async (newUser) => {
     try {
-      const response = await axios.post(`${baseUrl}/api/points`, newPoint, authEx);
-      setPoints((prev) => [...prev, response.data]);
-      fetchPoints();
+      const response = await axios.post(`${baseUrl}/api/auth/users`, newUser, authEx);
+      setUsers((prev) => [...prev, response.data]);
+      fetchUsers();
     } catch {
       notify("Erro ao adicionar ponto de coleta.", "error");
       setError("Erro ao adicionar ponto de coleta.");
     }
   };
 
-  const updatePoint = async (id, pointUpdated) => {
+  const updateUser = async (id, userUpdated) => {
     try {
-      const response = await axios.put(`${baseUrl}/api/points/${id}`, pointUpdated, authEx);
+      const response = await axios.put(`${baseUrl}/api/auth/users/${id}`, userUpdated, authEx);
       notify("Ponto de coleta atualizado com sucesso!", "success");
-      setPoints((prev) =>
-        prev.map((point) => (point.id === id ? response.data : point))
+      setUsers((prev) =>
+        prev.map((user) => (user.id === id ? response.data : user))
       );
-      fetchPoints();
+      fetchUsers();
     } catch {
       notify("Erro ao atualizar ponto de coleta.", "error");
       setError("Erro ao atualizar ponto de coleta.");
     }
   };
 
-  const deletePoint = async (id) => {
+  const deleteUser = async (id) => {
     try {
-      await axios.delete(`${baseUrl}/api/points/${id}`, authEx);
+      await axios.delete(`${baseUrl}/api/auth/users/${id}`, authEx);
       notify("Ponto de coleta deletado com sucesso!", "success");
-      setPoints((prev) => prev.filter((point) => point.id !== id));
-      fetchPoints();
+      setUsers((prev) => prev.filter((user) => user.id !== id));
+      fetchUsers();
     } catch(err) {
       console.log(err);
       notify("Erro ao deletar ponto de coleta.", "error");
@@ -69,12 +69,12 @@ export const PointsProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    fetchPoints();
+    fetchUsers();
   }, []);
 
   return (
-    <PointsContext.Provider value={{ points, loading, error, fetchPoints, addPoint, updatePoint, deletePoint }}>
+    <UsersContext.Provider value={{ users, loading, error, fetchUsers, addUser, updateUser, deleteUser }}>
       {children}
-    </PointsContext.Provider>
+    </UsersContext.Provider>
   );
 };

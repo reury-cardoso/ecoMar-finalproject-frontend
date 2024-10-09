@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { CurrentSectionContext } from "../../context/currentSectionContext";
 import { EventsContext } from "../../context/eventsContext";
 import { PointsContext } from "../../context/PointsContext";
+import { UsersContext } from "../../context/UsersContext";
 
 function AdminLeftSection() {
   const { currentSection, setCurrentSection } = useContext(
@@ -14,6 +15,7 @@ function AdminLeftSection() {
   );
   const { fetchEvents } = useContext(EventsContext);
   const { fetchPoints } = useContext(PointsContext);
+  const { fetchUsers } = useContext(UsersContext);
 
   return (
     <div
@@ -36,7 +38,10 @@ function AdminLeftSection() {
       </div>
 
       <div
-        onClick={() => setCurrentSection("users")}
+        onClick={() => {
+          fetchUsers();
+          setCurrentSection("users");
+        }}
         className={`flex items-center gap-2 px-10 py-[.5rem] rounded-[8px] [transition:background-color_.3s] cursor-pointer  ${
           currentSection === "users"
             ? "!bg-[#0A2F51] !text-[#fff] hover:!bg-[#094883]"
