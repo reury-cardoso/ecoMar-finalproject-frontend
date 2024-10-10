@@ -23,7 +23,7 @@ function Login() {
       localStorage.setItem("token", response.data.token);
       const sleep = ms => new Promise(r => setTimeout(r, ms));
       await sleep(2000)
-      window.location.href = "/points";
+      window.location.href = "/admin";
     } catch (error) {
       setError("Erro ao tentar fazer login. Tente novamente mais tarde.", error);
     }

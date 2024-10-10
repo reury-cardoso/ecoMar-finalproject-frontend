@@ -7,7 +7,7 @@ const baseUrl = import.meta.env.VITE_URL_API;
 
 const authEx = {
   headers: {
-    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZTkwOTI2MzItOTY5MS00M2EyLTg3N2EtZGU3NzU2ZDJhZTZkIiwiZW1haWwiOiJ1c2VyQGV4YW1wbGUuY29tIiwidXNlcl90eXBlIjoiYWRtaW4iLCJpYXQiOjE3Mjg0ODE0NTksImV4cCI6MTcyODQ4NTA1OX0.SNBTlVth4a285Vd6lIjKzqpTKYF3ODaZcNtg58TZtSI`,
+    Authorization: `Bearer ${localStorage.getItem('token')}`,
   }
 }
 
