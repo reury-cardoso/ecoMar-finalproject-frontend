@@ -1,6 +1,34 @@
+import { useState } from "react";
 import Header from "../../components/header/header";
+import axios from "axios";
+const baseUrl = import.meta.env.VITE_URL_API;
 
 function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    try {
+      const response = await axios.post(`${baseUrl}/api/auth/login`, {email, password});
+
+      if (response.status != 200) {
+        setError("E-mail ou senha incorretos.");
+        return;
+      }
+
+      localStorage.setItem("token", response.data.token);
+      const sleep = ms => new Promise(r => setTimeout(r, ms));
+      await sleep(2000)
+      window.location.href = "/points";
+    } catch (error) {
+      setError("Erro ao tentar fazer login. Tente novamente mais tarde.", error);
+    }
+  };
+
   return (
     <>
       <Header />
@@ -9,7 +37,10 @@ function Login() {
           <h2 className="mb-6 text-2xl font-bold text-center text-gray-800">
             Acesse sua conta
           </h2>
-          <form>
+          {error && (
+            <div className="mb-4 text-sm text-red-600 text-center">{error}</div>
+          )}
+          <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label className="block mb-2 text-sm font-medium text-gray-600">
                 E-mail
@@ -33,6 +64,8 @@ function Login() {
                   type="email"
                   className="w-full px-4 py-2 text-gray-700 bg-transparent focus:outline-none"
                   placeholder="Digite seu e-mail"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
             </div>
@@ -60,6 +93,8 @@ function Login() {
                   type="password"
                   className="w-full px-4 py-2 text-gray-700 bg-transparent focus:outline-none"
                   placeholder="Digite sua senha"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
             </div>

@@ -13,6 +13,44 @@ function Signup() {
 
   async function handleSignup(e){
     e.preventDefault();
+
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const isValidPhone = (phone) => {
+    const phoneRegex = /^\d{10,}$/;
+    return phoneRegex.test(phone);
+  };
+
+  const isValidPassword = (password) => {
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return passwordRegex.test(password);
+  };
+
+   if (!name.trim()) {
+    notify("O nome não pode estar vazio ou conter apenas espaços", "error");
+    return;
+  }
+
+  if (!isValidEmail(email)) {
+    notify("Formato de email inválido", "error");
+    return;
+  }
+
+  if (!isValidPhone(phone)) {
+    notify("O telefone deve conter apenas números e no mínimo 10 dígitos", "error");
+    return;
+  }
+
+  if (!isValidPassword(password)) {
+    notify(
+      "A senha deve ter pelo menos 8 caracteres, incluindo uma letra maiúscula, um número e um caractere especial",
+      "error"
+    );
+    return;
+  }
     
     if(!name || !email || !phone || !password){
       notify("Preencha todos os campos", "error");
@@ -29,7 +67,7 @@ function Signup() {
 
       notify("Registrado com sucesso", "success");
       const sleep = ms => new Promise(r => setTimeout(r, ms));
-      await sleep(3000)
+      await sleep(1000)
 
       window.location.href = "/login";
     } catch {
