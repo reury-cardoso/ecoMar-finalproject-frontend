@@ -6,20 +6,12 @@ import { useContext, useState } from "react";
 import { CurrentSectionContext } from "../../context/currentSectionContext";
 import { EventsContext } from "../../context/eventsContext.jsx";
 import { PointsContext } from "../../context/PointsContext.jsx";
-
-const usuarios = [
-  {
-    id: 1,
-    name: "João",
-    email: "exmma",
-    phone: "11 999999999",
-    type: "admin",
-  }
-]
+import { UsersContext } from "../../context/UsersContext.jsx";
 
 function AdminRightSection() {
   const { events } = useContext(EventsContext);
   const { points } = useContext(PointsContext);
+  const { users } = useContext(UsersContext);
   const { currentSection } = useContext(CurrentSectionContext);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -43,7 +35,7 @@ function AdminRightSection() {
 
   const data =
     currentSection === "users"
-      ? usuarios
+      ? users
       : currentSection === "events"
       ? events
       : points;

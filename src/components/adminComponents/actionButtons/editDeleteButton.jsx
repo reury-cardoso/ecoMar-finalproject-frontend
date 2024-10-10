@@ -1,13 +1,15 @@
 import { useContext } from "react";
 import { EventsContext } from "../../../context/eventsContext";
 import { PointsContext } from "../../../context/PointsContext";
+import { UsersContext } from "../../../context/UsersContext";
 
 /* eslint-disable react/prop-types */
 function EditDeleteButton({ theSection, idElement, }) {
-  const { deleteEvent  } = useContext(EventsContext);
-  const { deletePoint  } = useContext(PointsContext);
+  const { deleteEvent } = useContext(EventsContext);
+  const { deletePoint } = useContext(PointsContext);
+  const { deleteUsers } = useContext(UsersContext);
 
-  const sectionDelete = theSection === "events" ? deleteEvent : deletePoint;
+  const sectionDelete = theSection === "events" ? deleteEvent : theSection === "points" ? deletePoint : deleteUsers;
 
   return (
     <>

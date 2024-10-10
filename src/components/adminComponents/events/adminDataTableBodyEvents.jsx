@@ -12,7 +12,7 @@ function AdminDataTableBodyEvents({ dataTable }) {
     <tr className="border-b border-gray-300 hover:bg-gray-100">
       <td className="py-3 px-6 text-left">{dataTable.name}</td>
       <td className="py-3 px-6 text-left">{dataTable.description}</td>
-      <td className="py-3 px-6 text-left">{dataTable.date}</td>
+      <td className="py-3 px-6 text-left">{new Date(dataTable.date).toLocaleDateString()}</td>
       <td className="py-3 px-6 text-left">{dataTable.location}</td>
       <td className="py-3 px-6 text-left">{dataTable.event_type}</td>
       <td className="py-3 px-6 text-left">
