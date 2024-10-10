@@ -2,7 +2,7 @@ import EditDeleteButton from "../actionButtons/editDeleteButton";
 
 /* eslint-disable react/prop-types */
 function AdminDataTableBodyUsers({ dataTable }) {
-  const typeColor = dataTable.Tipo === "regular" ? "bg-green-200 text-green-800" : "bg-red-200 text-red-800";
+  const typeColor = dataTable.user_type === "regular" ? "bg-green-200 text-green-800" : "bg-red-200 text-red-800";
 
   return (
     <tr className="border-b border-gray-300 hover:bg-gray-100">

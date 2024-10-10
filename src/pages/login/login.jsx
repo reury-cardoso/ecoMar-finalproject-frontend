@@ -1,15 +1,38 @@
-import { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useContext, useEffect, useState } from "react";
 import Header from "../../components/header/header";
 import axios from "axios";
+import { AuthContext } from "../../context/authContext";
+import { notify } from "../../components/notifications/notifications";
+import loadingSvg from "../../assets/tubeSpinner.svg";
+
 const baseUrl = import.meta.env.VITE_URL_API;
 
 function Login() {
+  const { isLogged, setIsLogged } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (isLogged) {
+      notify("Você já está logado!", "success");
+  
+      async function redirect() {
+        const sleep = ms => new Promise(r => setTimeout(r, ms));
+        await sleep(2000);
+        window.location.href = "/points";
+      }
+      
+      redirect();
+    }
+  }, []);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
+  const [loading, setLoading] = useState(false);
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     setError("");
 
     try {
@@ -21,10 +44,16 @@ function Login() {
       }
 
       localStorage.setItem("token", response.data.token);
+      notify("Login efetuado com sucesso!", "success");
+      setLoading(false);
       const sleep = ms => new Promise(r => setTimeout(r, ms));
       await sleep(2000)
-      window.location.href = "/admin";
+
+      window.location.href = "/points";
+
+      setIsLogged(true);
     } catch (error) {
+      setLoading(false);
       setError("Erro ao tentar fazer login. Tente novamente mais tarde.", error);
     }
   };
@@ -102,7 +131,11 @@ function Login() {
               type="submit"
               className="w-full px-4 py-2 text-white bg-teal-500 rounded-md hover:bg-teal-600 focus:outline-none"
             >
-              Entrar
+              {loading ? (
+                <img src={loadingSvg} alt="Loading" className="w-6 h-6 mx-auto" />
+              ) : (
+                "Entrar"
+              )}
             </button>
           </form>
           <div className="mt-6 text-center">

@@ -20,13 +20,13 @@ function Home() {
             </p>
             <div className="flex gap-4">
               <a
-                href="/eventos"
+                href="/events"
                 className="inline-flex px-8 py-4 rounded-full border-4 border-[#00A8A8] text-[#0A2F51] text-[16px] font-bold duration-300 focus:ring-4 focus:ring-gray-300 text-sm lg:px-10 lg:py-3 focus:outline-none"
               >
                 Eventos
               </a>
               <a
-                href="/visualizar-pontos"
+                href="/points"
                 className="inline-flex px-8 py-4 rounded-full border-4 border-[#00A8A8] text-white text-[16px] font-bold duration-300 hover:text-white bg-[#0A2F51] hover:bg-[#0A2438] focus:ring-4 focus:ring-gray-300 text-sm lg:px-10 lg:py-3 focus:outline-none"
               >
                 Visualizar Pontos

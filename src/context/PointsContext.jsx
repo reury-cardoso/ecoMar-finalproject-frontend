@@ -1,19 +1,22 @@
 /* eslint-disable react/prop-types */
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { notify } from "../components/notifications/notifications";
+import { AuthContext } from "./authContext";
 
 const baseUrl = import.meta.env.VITE_URL_API;
-
-const authEx = {
-  headers: {
-    Authorization: `Bearer ${localStorage.getItem('token')}`,
-  }
-}
 
 export const PointsContext = createContext();
 
 export const PointsProvider = ({ children }) => {
+  const { token } = useContext(AuthContext);
+
+  const authEx = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  
   const [points, setPoints] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);

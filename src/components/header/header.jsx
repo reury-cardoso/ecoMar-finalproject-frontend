@@ -1,11 +1,12 @@
-/* eslint-disable react/prop-types */
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import AdminMenu from "../adminMenu/AdminMenu";
 import "./header.css";
 import logo from "/marreco.svg";
 import LoginButton from "./loginButton/loginButton";
+import { AuthContext } from "../../context/authContext";
 
-function Header({ isLogged }) {
+function Header() {
+  const { isLogged } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef(null);
 

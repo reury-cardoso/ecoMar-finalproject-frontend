@@ -1,58 +1,88 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Header from "../../components/header/header";
 import { notify } from "../../components/notifications/notifications";
 import axios from "axios";
+import { AuthContext } from "../../context/authContext";
+import loadingSvg from "../../assets/tubeSpinner.svg";
 
 const baseUrl = import.meta.env.VITE_URL_API;
 
 function Signup() {
+  const { isLogged, isAdmin } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (isLogged) {
+      notify("Você já está logado!", "success");
+  
+      async function redirect() {
+        const sleep = ms => new Promise(r => setTimeout(r, ms));
+        await sleep(2000);
+        window.location.href = "/points";
+      }
+      
+      redirect();
+    }
+  }, [isLogged, isAdmin]);
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  async function handleSignup(e){
+
+  async function handleSignup(e) {
     e.preventDefault();
+    setLoading(true);
 
-  const isValidEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
+    const isValidEmail = (email) => {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    };
 
-  const isValidPhone = (phone) => {
-    const phoneRegex = /^\d{10,}$/;
-    return phoneRegex.test(phone);
-  };
+    const isValidPhone = (phone) => {
+      const phoneRegex = /^\d{10,}$/;
+      return phoneRegex.test(phone);
+    };
 
-  const isValidPassword = (password) => {
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    return passwordRegex.test(password);
-  };
+    const isValidPassword = (password) => {
+      const passwordRegex =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+      return passwordRegex.test(password);
+    };
 
-   if (!name.trim()) {
-    notify("O nome não pode estar vazio ou conter apenas espaços", "error");
-    return;
-  }
+    if (!name.trim()) {
+      setLoading(false);
+      notify("O nome não pode estar vazio ou conter apenas espaços", "error");
+      return;
+    }
 
-  if (!isValidEmail(email)) {
-    notify("Formato de email inválido", "error");
-    return;
-  }
+    if (!isValidEmail(email)) {
+      setLoading(false);
+      notify("Formato de email inválido", "error");
+      return;
+    }
 
-  if (!isValidPhone(phone)) {
-    notify("O telefone deve conter apenas números e no mínimo 10 dígitos", "error");
-    return;
-  }
+    if (!isValidPhone(phone)) {
+      setLoading(false);
+      notify(
+        "O telefone deve conter apenas números e no mínimo 10 dígitos",
+        "error"
+      );
+      return;
+    }
 
-  if (!isValidPassword(password)) {
-    notify(
-      "A senha deve ter pelo menos 8 caracteres, incluindo uma letra maiúscula, um número e um caractere especial",
-      "error"
-    );
-    return;
-  }
-    
-    if(!name || !email || !phone || !password){
+    if (!isValidPassword(password)) {
+      setLoading(false);
+      notify(
+        "A senha deve ter pelo menos 8 caracteres, incluindo uma letra maiúscula, um número e um caractere especial",
+        "error"
+      );
+      return;
+    }
+
+    if (!name || !email || !phone || !password) {
+      setLoading(false);
       notify("Preencha todos os campos", "error");
       return;
     }
@@ -62,19 +92,21 @@ function Signup() {
         name,
         email,
         phone,
-        password
-      })
+        password,
+      });
 
+      setLoading(false);
       notify("Registrado com sucesso", "success");
-      const sleep = ms => new Promise(r => setTimeout(r, ms));
-      await sleep(1000)
+      const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+      await sleep(1000);
 
       window.location.href = "/login";
     } catch {
+      setLoading(false);
       notify("Erro ao registrar", "error");
-    }  
+    }
   }
-  
+
   return (
     <>
       <Header />
@@ -184,8 +216,15 @@ function Signup() {
               />
             </div>
 
-            <button onClick={handleSignup} className="w-full bg-[#0A2F51] text-white py-3 rounded-lg hover:bg-[#0A2438] font-bold">
-              Registrar
+            <button
+              onClick={handleSignup}
+              className="w-full bg-[#0A2F51] text-white py-3 rounded-lg hover:bg-[#0A2438] font-bold"
+            >
+              {loading ? (
+                <img src={loadingSvg} alt="loading" className="w-6 h-6 mx-auto" />
+              ) : (
+                "Registrar"
+              )}
             </button>
           </form>
 

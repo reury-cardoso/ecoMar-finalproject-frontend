@@ -1,19 +1,22 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { notify } from "../components/notifications/notifications";
+import { AuthContext } from "./authContext";
 
 const baseUrl = import.meta.env.VITE_URL_API;
-
-const authEx = {
-  headers: {
-    Authorization: `Bearer ${localStorage.getItem('token')}`,
-  }
-}
 
 export const UsersContext = createContext();
 
 export const UsersProvider = ({ children }) => {
+  const { token } = useContext(AuthContext);
+
+  const authEx = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -43,7 +46,7 @@ export const UsersProvider = ({ children }) => {
   const updateUser = async (id, userUpdated) => {
     try {
       const response = await axios.put(`${baseUrl}/api/auth/users/${id}`, userUpdated, authEx);
-      notify("Ponto de coleta atualizado com sucesso!", "success");
+      notify("Usuário atualizado com sucesso!", "success");
       setUsers((prev) =>
         prev.map((user) => (user.id === id ? response.data : user))
       );
@@ -57,7 +60,7 @@ export const UsersProvider = ({ children }) => {
     try {
       console.log(id);
       await axios.delete(`${baseUrl}/api/auth/users/${id}`, authEx);
-      notify("Ponto de coleta deletado com sucesso!", "success");
+      notify("Usuário deletado com sucesso!", "success");
       setUsers((prev) => prev.filter((user) => user.id !== id));
       fetchUsers();
     } catch {

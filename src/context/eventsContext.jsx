@@ -1,19 +1,22 @@
 /* eslint-disable react/prop-types */
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { notify } from "../components/notifications/notifications";
+import { AuthContext } from "./authContext";
 
 const baseUrl = import.meta.env.VITE_URL_API;
-
-const authEx = {
-  headers: {
-    Authorization: `Bearer ${localStorage.getItem('token')}`,
-  }
-}
 
 export const EventsContext = createContext();
 
 export const EventsProvider = ({ children }) => {
+  const { token } = useContext(AuthContext);
+
+  const authEx = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -23,7 +26,7 @@ export const EventsProvider = ({ children }) => {
     try {
       const response = await axios.get(`${baseUrl}/api/events`);
       setEvents(response.data);
-    } catch{
+    } catch {
       setError("Erro ao buscar eventos.");
     } finally {
       setLoading(false);
@@ -32,7 +35,11 @@ export const EventsProvider = ({ children }) => {
 
   const addEvent = async (newEvent) => {
     try {
-      const response = await axios.post(`${baseUrl}/api/events`, newEvent, authEx);
+      const response = await axios.post(
+        `${baseUrl}/api/events`,
+        newEvent,
+        authEx
+      );
       setEvents((prev) => [...prev, response.data]);
       fetchEvents();
     } catch {
@@ -42,7 +49,11 @@ export const EventsProvider = ({ children }) => {
 
   const updateEvent = async (id, eventUpdated) => {
     try {
-      const response = await axios.put(`${baseUrl}/api/events/${id}`, eventUpdated, authEx);
+      const response = await axios.put(
+        `${baseUrl}/api/events/${id}`,
+        eventUpdated,
+        authEx
+      );
       notify("Evento atualizado com sucesso!", "success");
       setEvents((prev) =>
         prev.map((event) => (event.id === id ? response.data : event))
@@ -73,7 +84,17 @@ export const EventsProvider = ({ children }) => {
   }, []);
 
   return (
-    <EventsContext.Provider value={{ events, loading, error, fetchEvents, addEvent, updateEvent, deleteEvent }}>
+    <EventsContext.Provider
+      value={{
+        events,
+        loading,
+        error,
+        fetchEvents,
+        addEvent,
+        updateEvent,
+        deleteEvent,
+      }}
+    >
       {children}
     </EventsContext.Provider>
   );
