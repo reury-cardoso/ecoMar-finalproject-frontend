@@ -7,9 +7,9 @@ import { UsersContext } from "../../../context/UsersContext";
 function EditDeleteButton({ theSection, idElement, }) {
   const { deleteEvent } = useContext(EventsContext);
   const { deletePoint } = useContext(PointsContext);
-  const { deleteUsers } = useContext(UsersContext);
+  const { deleteUser } = useContext(UsersContext);
 
-  const sectionDelete = theSection === "events" ? deleteEvent : theSection === "points" ? deletePoint : deleteUsers;
+  const sectionDelete = theSection === "events" ? deleteEvent : theSection === "points" ? deletePoint : deleteUser;
 
   return (
     <>

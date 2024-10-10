@@ -82,9 +82,15 @@ function AdminRightSection() {
             </tr>
           </thead>
           <tbody className="text-gray-700 text-sm font-light">
-            {filteredData.map((dataItem) => (
+            {filteredData.length != 0 ? filteredData.map((dataItem) => (
               <ComponentTableBody key={dataItem.event_id ?? dataItem.point_id ?? dataItem.user_id} dataTable={dataItem} />
-            ))}
+            )) : (
+              <tr className="border-b border-gray-300 hover:bg-gray-100">
+                <td colSpan="6" className="py-3 px-6 text-center">
+                  Nenhum dado encontrado.
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>

@@ -7,7 +7,7 @@ const baseUrl = import.meta.env.VITE_URL_API;
 
 const authEx = {
   headers: {
-    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZTkwOTI2MzItOTY5MS00M2EyLTg3N2EtZGU3NzU2ZDJhZTZkIiwiZW1haWwiOiJ1c2VyQGV4YW1wbGUuY29tIiwidXNlcl90eXBlIjoiYWRtaW4iLCJpYXQiOjE3Mjg0ODE0NTksImV4cCI6MTcyODQ4NTA1OX0.SNBTlVth4a285Vd6lIjKzqpTKYF3ODaZcNtg58TZtSI`,
+    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMTUwMmI5ZmEtYzJlYS00MzY4LWE0ZGUtZWUwOWMxODY5N2NhIiwiZW1haWwiOiJ1c2VyQGV4YW1wbGUuY29tIiwidXNlcl90eXBlIjoiYWRtaW4iLCJpYXQiOjE3Mjg1NjExNTYsImV4cCI6MTcyODU2NDc1Nn0.gtlwE6dWE1G-9-3b8QRMeFx3Qu-YlxBPJVUCxxqod78`,
   }
 }
 
@@ -36,7 +36,6 @@ export const PointsProvider = ({ children }) => {
       setPoints((prev) => [...prev, response.data]);
       fetchPoints();
     } catch {
-      notify("Erro ao adicionar ponto de coleta.", "error");
       setError("Erro ao adicionar ponto de coleta.");
     }
   };
@@ -50,7 +49,6 @@ export const PointsProvider = ({ children }) => {
       );
       fetchPoints();
     } catch {
-      notify("Erro ao atualizar ponto de coleta.", "error");
       setError("Erro ao atualizar ponto de coleta.");
     }
   };
@@ -63,10 +61,13 @@ export const PointsProvider = ({ children }) => {
       fetchPoints();
     } catch(err) {
       console.log(err);
-      notify("Erro ao deletar ponto de coleta.", "error");
       setError("Erro ao deletar ponto de coleta.");
     }
   };
+
+  useEffect(() => {
+    notify(error, "error");
+  }, [error]);
 
   useEffect(() => {
     fetchPoints();

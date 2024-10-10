@@ -7,7 +7,7 @@ const baseUrl = import.meta.env.VITE_URL_API;
 
 const authEx = {
   headers: {
-    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZTkwOTI2MzItOTY5MS00M2EyLTg3N2EtZGU3NzU2ZDJhZTZkIiwiZW1haWwiOiJ1c2VyQGV4YW1wbGUuY29tIiwidXNlcl90eXBlIjoiYWRtaW4iLCJpYXQiOjE3Mjg0ODE0NTksImV4cCI6MTcyODQ4NTA1OX0.SNBTlVth4a285Vd6lIjKzqpTKYF3ODaZcNtg58TZtSI`,
+    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMTUwMmI5ZmEtYzJlYS00MzY4LWE0ZGUtZWUwOWMxODY5N2NhIiwiZW1haWwiOiJ1c2VyQGV4YW1wbGUuY29tIiwidXNlcl90eXBlIjoiYWRtaW4iLCJpYXQiOjE3Mjg1NjExNTYsImV4cCI6MTcyODU2NDc1Nn0.gtlwE6dWE1G-9-3b8QRMeFx3Qu-YlxBPJVUCxxqod78`,
   }
 }
 
@@ -36,7 +36,6 @@ export const EventsProvider = ({ children }) => {
       setEvents((prev) => [...prev, response.data]);
       fetchEvents();
     } catch {
-      notify("Erro ao adicionar evento.", "error");
       setError("Erro ao adicionar evento.");
     }
   };
@@ -50,7 +49,6 @@ export const EventsProvider = ({ children }) => {
       );
       fetchEvents();
     } catch {
-      notify("Erro ao atualizar evento.", "error");
       setError("Erro ao atualizar evento.");
     }
   };
@@ -62,10 +60,13 @@ export const EventsProvider = ({ children }) => {
       setEvents((prev) => prev.filter((event) => event.id !== id));
       fetchEvents();
     } catch {
-      notify("Erro ao deletar evento.", "error");
       setError("Erro ao deletar evento.");
     }
   };
+
+  useEffect(() => {
+    notify(error, "error");
+  }, [error]);
 
   useEffect(() => {
     fetchEvents();

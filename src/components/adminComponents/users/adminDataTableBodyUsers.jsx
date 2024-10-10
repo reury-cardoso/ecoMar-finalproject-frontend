@@ -15,7 +15,7 @@ function AdminDataTableBodyUsers({ dataTable }) {
         </span>
       </td>
       <td className="py-3 px-6 text-center">
-      <EditDeleteButton />
+      <EditDeleteButton theSection={"users"} idElement={dataTable.user_id} />
       </td>
     </tr>
   );
