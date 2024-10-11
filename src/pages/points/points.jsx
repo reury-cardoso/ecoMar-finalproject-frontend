@@ -7,7 +7,7 @@ import {
 } from "@heroicons/react/24/outline";
 
 function Points() {
-    const [favoriteButton, setFavoriteButton] = useState(false);
+    const [favoriteButton, setFavoriteButton] = useState(true);
 
     return (
         <main className="flex flex-col min-h-screen">
