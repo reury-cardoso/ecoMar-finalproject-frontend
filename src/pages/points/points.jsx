@@ -14,7 +14,7 @@ function Points() {
             <Header />
             <section className="flex flex-col grow py-6 px-24 gap-4">
                 <h1 className="font-bold text-5xl">Pontos de Coleta</h1>
-                <div className="flex justify-between">
+                <div className="flex justify-between mb-6">
                     <div className="flex gap-4">
                         <div className="bg-[#DEE3ED] rounded-xl p-3 flex items-center">
                             <MagnifyingGlassIcon className="w-6 h-6 text-[#7E7E7E] mr-2"></MagnifyingGlassIcon>
