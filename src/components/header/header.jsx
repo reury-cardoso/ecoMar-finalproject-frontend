@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef, useContext } from "react";
 import AdminMenu from "../adminMenu";
-import "./header.css";
 import logo from "/marreco.svg";
 import LoginButton from "./loginButton/loginButton";
 import { AuthContext } from "../../context/authContext";

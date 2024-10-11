@@ -1,5 +1,4 @@
 import Header from "../../components/header/header";
-import "./events.css";
 
 function Events() {
   return (
