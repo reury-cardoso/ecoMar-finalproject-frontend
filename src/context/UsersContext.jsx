@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import { createContext, useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { notify } from "../components/notifications/notifications";
+import { notify } from "../components/notifications";
 import { AuthContext } from "./authContext";
 
 const baseUrl = import.meta.env.VITE_URL_API;
@@ -18,18 +18,17 @@ export const UsersProvider = ({ children }) => {
     },
   };
   const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loadingUsers, setLoadingUsers] = useState(true);
   const [error, setError] = useState(null);
 
   const fetchUsers = async () => {
-    setLoading(true);
     try {
       const response = await axios.get(`${baseUrl}/api/auth/users`, authEx);
       setUsers(response.data);
     } catch {
       setError("Erro ao buscar usuários.");
     } finally {
-      setLoading(false);
+      setLoadingUsers(false);
     }
   };
 
@@ -77,7 +76,7 @@ export const UsersProvider = ({ children }) => {
   }, []);
 
   return (
-    <UsersContext.Provider value={{ users, loading, error, fetchUsers, addUser, updateUser, deleteUser }}>
+    <UsersContext.Provider value={{ users, loadingUsers, error, fetchUsers, addUser, updateUser, deleteUser }}>
       {children}
     </UsersContext.Provider>
   );

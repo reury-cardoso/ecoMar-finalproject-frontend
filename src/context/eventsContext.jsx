@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { createContext, useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { notify } from "../components/notifications/notifications";
+import { notify } from "../components/notifications";
 import { AuthContext } from "./authContext";
 
 const baseUrl = import.meta.env.VITE_URL_API;
@@ -18,18 +18,17 @@ export const EventsProvider = ({ children }) => {
   };
 
   const [events, setEvents] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loadingEvents, setLoadingEvents] = useState(true);
   const [error, setError] = useState(null);
 
   const fetchEvents = async () => {
-    setLoading(true);
     try {
       const response = await axios.get(`${baseUrl}/api/events`);
       setEvents(response.data);
     } catch {
       setError("Erro ao buscar eventos.");
     } finally {
-      setLoading(false);
+      setLoadingEvents(false);
     }
   };
 
@@ -87,7 +86,7 @@ export const EventsProvider = ({ children }) => {
     <EventsContext.Provider
       value={{
         events,
-        loading,
+        loadingEvents,
         error,
         fetchEvents,
         addEvent,

@@ -19,7 +19,7 @@ function AdminDataTableBodyPoints({ dataTable }) {
         {dataTable.status}
         </span>
       </td>
-      <td className="py-3 px-6 text-center">
+      <td className="py-3 px-6 flex justify-center text-center">
         {actionButtons}
       </td>
     </tr>

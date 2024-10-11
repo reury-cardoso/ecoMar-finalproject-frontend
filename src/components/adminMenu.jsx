@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { AuthContext } from "../../context/authContext";
+import { AuthContext } from "../context/authContext";
 
 function AdminMenu() {
   const { setToken, isAdmin } = useContext(AuthContext);

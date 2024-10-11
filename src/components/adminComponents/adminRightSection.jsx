@@ -2,18 +2,30 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import AdminDataTableBodyPoints from "./points/adminDataTableBodyPoints";
 import AdminDataTableBodyUsers from "./users/adminDataTableBodyUsers";
 import AdminDataTableBodyEvents from "./events/adminDataTableBodyEvents";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CurrentSectionContext } from "../../context/currentSectionContext";
 import { EventsContext } from "../../context/eventsContext.jsx";
 import { PointsContext } from "../../context/PointsContext.jsx";
 import { UsersContext } from "../../context/UsersContext.jsx";
+import loadingSvg from "../../assets/tubeSpinnerNigth.svg";
 
 function AdminRightSection() {
-  const { events } = useContext(EventsContext);
-  const { points } = useContext(PointsContext);
-  const { users } = useContext(UsersContext);
+  const { events, loadingEvents } = useContext(EventsContext);
+  const { points, loadingPoints } = useContext(PointsContext);
+  const { users, loadingUsers } = useContext(UsersContext);
+  const [loading, setLoading] = useState(false);
   const { currentSection } = useContext(CurrentSectionContext);
   const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+    if (currentSection === "users") {
+      setLoading(loadingUsers);
+    } else if (currentSection === "events") {
+      setLoading(loadingEvents);
+    } else {
+      setLoading(loadingPoints);
+    }
+  }, [currentSection, loadingEvents, loadingPoints, loadingUsers]);
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -82,9 +94,26 @@ function AdminRightSection() {
             </tr>
           </thead>
           <tbody className="text-gray-700 text-sm font-light">
-            {filteredData.length != 0 ? filteredData.map((dataItem) => (
-              <ComponentTableBody key={dataItem.event_id ?? dataItem.point_id ?? dataItem.user_id} dataTable={dataItem} />
-            )) : (
+            {loading ? (
+              <tr>
+                <td colSpan="6" className="text-center">
+                  <img
+                    src={loadingSvg}
+                    alt="loading"
+                    className="h-12 px-0 py-[10px] mx-auto fill-current text-blue-500"
+                  />
+                </td>
+              </tr>
+            ) : filteredData.length !== 0 ? (
+              filteredData.map((dataItem) => (
+                <ComponentTableBody
+                  key={
+                    dataItem.event_id ?? dataItem.point_id ?? dataItem.user_id
+                  }
+                  dataTable={dataItem}
+                />
+              ))
+            ) : (
               <tr className="border-b border-gray-300 hover:bg-gray-100">
                 <td colSpan="6" className="py-3 px-6 text-center">
                   Nenhum dado encontrado.

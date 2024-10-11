@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { createContext, useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { notify } from "../components/notifications/notifications";
+import { notify } from "../components/notifications";
 import { AuthContext } from "./authContext";
 
 const baseUrl = import.meta.env.VITE_URL_API;
@@ -18,18 +18,17 @@ export const PointsProvider = ({ children }) => {
   };
   
   const [points, setPoints] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loadingPoints, setLoadingPoints] = useState(true);
   const [error, setError] = useState(null);
 
   const fetchPoints = async () => {
-    setLoading(true);
     try {
       const response = await axios.get(`${baseUrl}/api/points`);
       setPoints(response.data);
     } catch {
       setError("Erro ao buscar ponto de coleta.");
     } finally {
-      setLoading(false);
+      setLoadingPoints(false);
     }
   };
 
@@ -77,7 +76,7 @@ export const PointsProvider = ({ children }) => {
   }, []);
 
   return (
-    <PointsContext.Provider value={{ points, loading, error, fetchPoints, addPoint, updatePoint, deletePoint }}>
+    <PointsContext.Provider value={{ points, loadingPoints, error, fetchPoints, addPoint, updatePoint, deletePoint }}>
       {children}
     </PointsContext.Provider>
   );
