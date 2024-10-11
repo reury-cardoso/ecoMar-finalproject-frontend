@@ -1,6 +1,5 @@
 import Header from "../../components/header/header";
 import imgMain from "../../../public/image/img-main.svg";
-import "./home.css";
 
 function Home() {
   return (

@@ -32,6 +32,15 @@ export const PointsProvider = ({ children }) => {
     }
   };
 
+  const fetchPoint = async (id) => {
+    try {
+      const response = await axios.get(`${baseUrl}/api/points/${id}`);
+      return response.data;
+    } catch {
+      setError("Erro ao buscar ponto de coleta.");
+    }
+  };
+
   const addPoint = async (newPoint) => {
     try {
       const response = await axios.post(`${baseUrl}/api/points`, newPoint, authEx);
@@ -76,7 +85,7 @@ export const PointsProvider = ({ children }) => {
   }, []);
 
   return (
-    <PointsContext.Provider value={{ points, loadingPoints, error, fetchPoints, addPoint, updatePoint, deletePoint }}>
+    <PointsContext.Provider value={{ points, loadingPoints, error, fetchPoints, fetchPoint, addPoint, updatePoint, deletePoint }}>
       {children}
     </PointsContext.Provider>
   );

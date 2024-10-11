@@ -32,6 +32,15 @@ export const UsersProvider = ({ children }) => {
     }
   };
 
+  const fetchUser = async (id) => {
+    try {
+      const response = await axios.get(`${baseUrl}/api/auth/users/${id}`, authEx);
+      return response.data;
+    } catch {
+      setError("Erro ao buscar usuário.");
+    }
+  };
+
   const addUser = async (newUser) => {
     try {
       const response = await axios.post(`${baseUrl}/api/auth/users`, newUser, authEx);
@@ -76,7 +85,7 @@ export const UsersProvider = ({ children }) => {
   }, []);
 
   return (
-    <UsersContext.Provider value={{ users, loadingUsers, error, fetchUsers, addUser, updateUser, deleteUser }}>
+    <UsersContext.Provider value={{ users, loadingUsers, error, fetchUsers, fetchUser, addUser, updateUser, deleteUser }}>
       {children}
     </UsersContext.Provider>
   );

@@ -32,6 +32,15 @@ export const EventsProvider = ({ children }) => {
     }
   };
 
+  const fetchEvent = async (id) => {
+    try {
+      const response = await axios.get(`${baseUrl}/api/events/${id}`);
+      return response.data;
+    } catch {
+      setError("Erro ao buscar evento.");
+    }
+  };
+
   const addEvent = async (newEvent) => {
     try {
       const response = await axios.post(
@@ -89,6 +98,7 @@ export const EventsProvider = ({ children }) => {
         loadingEvents,
         error,
         fetchEvents,
+        fetchEvent,
         addEvent,
         updateEvent,
         deleteEvent,
