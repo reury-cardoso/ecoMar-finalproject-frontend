@@ -45,7 +45,7 @@ export const UsersProvider = ({ children }) => {
     try {
       const response = await axios.post(`${baseUrl}/api/auth/users`, newUser, authEx);
       setUsers((prev) => [...prev, response.data]);
-      fetchUsers();
+      await fetchUsers();
     } catch {
       setError("Erro ao adicionar usuário.");
     }
@@ -58,7 +58,7 @@ export const UsersProvider = ({ children }) => {
       setUsers((prev) =>
         prev.map((user) => (user.id === id ? response.data : user))
       );
-      fetchUsers();
+      await fetchUsers();
     } catch {
       setError("Erro ao atualizar usuário.");
     }
@@ -70,7 +70,7 @@ export const UsersProvider = ({ children }) => {
       await axios.delete(`${baseUrl}/api/auth/users/${id}`, authEx);
       notify("Usuário deletado com sucesso!", "success");
       setUsers((prev) => prev.filter((user) => user.id !== id));
-      fetchUsers();
+      await fetchUsers();
     } catch {
       setError("Erro ao deletar usuário.");
     }

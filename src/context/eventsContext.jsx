@@ -66,8 +66,9 @@ export const EventsProvider = ({ children }) => {
       setEvents((prev) =>
         prev.map((event) => (event.id === id ? response.data : event))
       );
-      fetchEvents();
-    } catch {
+      await fetchEvents();
+    } catch(err) {
+      console.log(err);
       setError("Erro ao atualizar evento.");
     }
   };
@@ -77,7 +78,7 @@ export const EventsProvider = ({ children }) => {
       await axios.delete(`${baseUrl}/api/events/${id}`, authEx);
       notify("Evento deletado com sucesso!", "success");
       setEvents((prev) => prev.filter((event) => event.id !== id));
-      fetchEvents();
+      await fetchEvents();
     } catch {
       setError("Erro ao deletar evento.");
     }

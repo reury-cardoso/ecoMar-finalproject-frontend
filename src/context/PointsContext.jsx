@@ -58,7 +58,7 @@ export const PointsProvider = ({ children }) => {
       setPoints((prev) =>
         prev.map((point) => (point.id === id ? response.data : point))
       );
-      fetchPoints();
+      await fetchPoints();
     } catch {
       setError("Erro ao atualizar ponto de coleta.");
     }
@@ -69,7 +69,7 @@ export const PointsProvider = ({ children }) => {
       await axios.delete(`${baseUrl}/api/points/${id}`, authEx);
       notify("Ponto de coleta deletado com sucesso!", "success");
       setPoints((prev) => prev.filter((point) => point.id !== id));
-      fetchPoints();
+      await fetchPoints();
     } catch(err) {
       console.log(err);
       setError("Erro ao deletar ponto de coleta.");

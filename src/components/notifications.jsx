@@ -3,7 +3,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Notification = () => {
-  return <ToastContainer />;
+  return <ToastContainer autoClose={2000} />;
 };
 
 export const notify = (message, type) => {

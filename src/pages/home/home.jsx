@@ -1,7 +1,27 @@
 import Header from "../../components/header/header";
 import imgMain from "../../../public/image/img-main.svg";
+import axios from "axios";
+import { useEffect, useState } from "react";
+
+const baseUrl = import.meta.env.VITE_URL_API;
+
 
 function Home() {
+    const [report, setReport] = useState({ totalPoints: 0, totalUsers: 0, totalEvents: 0 });
+
+useEffect(() => {
+    const fetchReport = async () => {
+        try {
+            const response = await axios.get(`${baseUrl}/api/report`);
+            setReport(response.data);
+        } catch (error) {
+            console.error("Failed to fetch report:", error);
+        }
+    };
+
+    fetchReport();
+}, []);
+
     return (
         <>
             <Header />
@@ -45,7 +65,7 @@ function Home() {
                 <div className="flex flex-wrap text-center justify-center gap-7 py-8 px-6 lg:py-4 lg:px-10">
                     <div className="mx-4">
                         <span className="block text-4xl font-bold text-[#333333]">
-                            150
+                        {String(report.totalPoints).padStart(3, '0')}
                         </span>
                         <span className="block text-[#828282]">
                             Pontos Cadastrados
@@ -53,7 +73,7 @@ function Home() {
                     </div>
                     <div className="mx-4">
                         <span className="block text-4xl font-bold text-[#333333]">
-                            9.000
+                        {String(report.totalUsers).padStart(3, '0')}
                         </span>
                         <span className="block text-[#828282]">
                             Usuários Ativos
@@ -61,10 +81,10 @@ function Home() {
                     </div>
                     <div className="mx-4">
                         <span className="block text-4xl font-bold text-[#333333]">
-                            2.500
+                        {String(report.totalEvents).padStart(3, '0')}
                         </span>
                         <span className="block text-[#828282]">
-                            Lixo Coletado
+                            Eventos Cadastrados
                         </span>
                     </div>
                 </div>
