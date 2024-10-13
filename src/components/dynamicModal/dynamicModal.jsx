@@ -15,7 +15,8 @@ function DynamicModal({
   data,
   modalIsOpen,
   setModalIsOpen,
-  onSubmit
+  onSubmit,
+  limit
 }) {
   const formData = data || {};
   const [isClosing, setIsClosing] = useState(false);
@@ -54,7 +55,7 @@ function DynamicModal({
       case "points":
         return <PointsForm formData={formData} mode={mode} onCancel={closeModal} onSubmit={handleSubmit}/>;
       case "users":
-        return <UsersForm formData={formData} mode={mode} onCancel={closeModal} onSubmit={handleSubmit}/>;
+        return <UsersForm limit={limit} formData={formData} mode={mode} onCancel={closeModal} onSubmit={handleSubmit}/>;
       case "events":
       default:
         return <EventsForm formData={formData} mode={mode} onCancel={closeModal} onSubmit={handleSubmit}/>;

@@ -18,8 +18,18 @@ export const ProfileProvider = ({ children }) => {
   };
 
   const getUserInfo = async () => {
-    const response = await axios.get(`${baseUrl}/api/users/${id}`, authEx);
+    const response = await axios.get(`${baseUrl}/api/auth/users/${id}`, authEx);
     setUserInfo(response.data);
+  };
+
+  const updateUserInfo = async (idModal, data) => {
+    try {
+      await axios.put(`${baseUrl}/api/auth/users/${idModal}`, data, authEx);
+      await getUserInfo();
+      localStorage.setItem('name', data.name);
+    } catch {
+      console.log('Erro ao atualizar usuário');
+    }
   };
 
   useEffect(() => {
@@ -29,7 +39,7 @@ export const ProfileProvider = ({ children }) => {
   }, [id]);
 
   return (
-    <ProfileContext.Provider value={{ userInfo, getUserInfo, setUserInfo }}>
+    <ProfileContext.Provider value={{ userInfo, getUserInfo, setUserInfo, updateUserInfo }}>
       {children}
     </ProfileContext.Provider>
   );

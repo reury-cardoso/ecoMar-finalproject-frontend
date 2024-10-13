@@ -9,10 +9,11 @@ const inputBaseClasses =
   const commonDivClasses = "mb-6";
 
 /* eslint-disable react/prop-types */
-function UsersForm({ formData, mode, onCancel, onSubmit }) {
+function UsersForm({ formData, mode, onCancel, onSubmit, limit }) {
   const [name, setName] = useState(formData.name || "");
   const [email, setEmail] = useState(formData.email || "");
   const [phone, setPhone] = useState(formData.phone || "");
+  const [cpf, setCpf] = useState(formData.cpf || "");
   const [user_type, setUserType] = useState(formData.user_type || "");
 
   const handleSubmit = async () => {
@@ -21,7 +22,7 @@ function UsersForm({ formData, mode, onCancel, onSubmit }) {
         notify("Preencha todos os campos.", "error");
         return;
       }
-      await onSubmit({ name, email, phone, user_type });
+      await onSubmit({ name, email, phone, user_type, cpf });
     } catch {
       notify("Erro ao enviar dados.", "error");
     }
@@ -70,7 +71,8 @@ function UsersForm({ formData, mode, onCancel, onSubmit }) {
               placeholder="Digite o telefone"
             />
           </div>
-          <div className={commonDivClasses}>
+          {limit !== 1 ? (
+            <div className={commonDivClasses}>
             <label className="block text-sm font-medium text-gray-700">
               Tipo
             </label>
@@ -84,6 +86,19 @@ function UsersForm({ formData, mode, onCancel, onSubmit }) {
               <option value="admin">Admin</option>
             </select>
           </div>
+          ): <div className={commonDivClasses}>
+          <label className="block text-sm font-medium text-gray-700">
+            CPF
+          </label>
+          <input
+            type="text"
+            name="cpf"
+            value={cpf}
+            onChange={(e) => setCpf(e.target.value)}
+            className={`${inputBaseClasses} ${inputFocusClasses} ${inputPaddingClasses}`}
+            placeholder="Digite o CPF"
+          />
+      </div> }
         </div>
       </div>
       <ModalFooter mode={mode} onCancel={onCancel} onSubmit={handleSubmit} />

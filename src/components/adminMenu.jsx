@@ -1,14 +1,16 @@
+/* eslint-disable react/prop-types */
 import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
 
-function AdminMenu() {
+function AdminMenu({openModal}) {
   const { setToken, isAdmin } = useContext(AuthContext);
 
   return (
     <div className="absolute right-0 mt-2 w-48 origin-top-right bg-white border border-gray-200 rounded-lg shadow-lg">
       <div className="py-1">
         <a
-          href="#editar-perfil"
+        onClick={() => openModal()}
+          href="#edit"
           className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
         >
           Editar Perfil

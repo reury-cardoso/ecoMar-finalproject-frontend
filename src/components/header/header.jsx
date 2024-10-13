@@ -3,11 +3,24 @@ import AdminMenu from "../adminMenu";
 import logo from "/marreco.svg";
 import LoginButton from "./loginButton/loginButton";
 import { AuthContext } from "../../context/authContext";
+import { ProfileContext } from "../../context/profileContext";
+import DynamicModal from "../dynamicModal/dynamicModal";
 
 function Header() {
   const { isLogged } = useContext(AuthContext);
+  const { userInfo, getUserInfo, updateUserInfo } = useContext(ProfileContext);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef(null);
+
+  const openModal = async () => {
+    await getUserInfo();
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
 
   const toggleMenu = () => {
     setIsOpen((prevState) => !prevState);
@@ -34,6 +47,7 @@ function Header() {
   const user = localStorage.getItem('name') || 'User'
 
   return (
+    <>
     <header>
       <nav className="border-b-2 border-#E0E0E0 px-4 lg:px-6 py-4">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-2xl">
@@ -61,7 +75,7 @@ function Header() {
                   </div>
                 </div>
                 <div ref={menuRef} className="relative inline-block text-left">
-                  {isOpen && <AdminMenu/>}
+                  {isOpen && <AdminMenu openModal={openModal}/>}
                 </div>
               </>
             ) : (
@@ -111,6 +125,16 @@ function Header() {
         </div>
       </nav>
     </header>
+    <DynamicModal
+        modalIsOpen={modalIsOpen}
+        setModalIsOpen={closeModal}
+        mode="edit" 
+        entity="users" 
+        data={userInfo}
+        onSubmit={updateUserInfo}
+        limit={1}
+      />
+    </>
   );
 }
 
