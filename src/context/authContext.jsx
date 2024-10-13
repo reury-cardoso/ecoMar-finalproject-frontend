@@ -22,6 +22,8 @@ export const AuthProvider = ({ children }) => {
 
       if (decoded.exp < now) {
         localStorage.removeItem('token');
+        localStorage.removeItem('user_id');
+        localStorage.removeItem('name');
         setToken(null);
         setIsLogged(false);
         setLoading(false);

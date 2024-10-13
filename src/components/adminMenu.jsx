@@ -23,6 +23,8 @@ function AdminMenu() {
           )}
         <a onClick={() => {
           localStorage.removeItem('token');
+          localStorage.removeItem('user_id');
+          localStorage.removeItem('name');
           setToken(null);
           window.location.href = window
         }}

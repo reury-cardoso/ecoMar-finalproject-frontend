@@ -31,6 +31,8 @@ function Header() {
     };
   }, [isOpen]);
 
+  const user = localStorage.getItem('name') || 'User'
+
   return (
     <header>
       <nav className="border-b-2 border-#E0E0E0 px-4 lg:px-6 py-4">
@@ -50,11 +52,11 @@ function Header() {
                 >
                   <img
                     className="h-[40px] size-9"
-                    src="https://api.dicebear.com/9.x/initials/svg?seed=Admin&radius=50&backgroundColor=00acc1,039be5,00897b,1e88e5,3949ab&backgroundType=gradientLinear,solid&fontFamily=Arial&fontSize=50"
+                    src={`https://api.dicebear.com/9.x/initials/svg?seed=${user}&radius=50&backgroundColor=00acc1,039be5,00897b,1e88e5,3949ab&backgroundType=gradientLinear,solid&fontFamily=Arial&fontSize=50`}
                     alt="Admin Avatar"
                   />
                   <div>
-                    <span className="font-bold">Admin</span>
+                    <span className="font-bold">{user}</span>
                     <p className="text-[#5F5E61] text-[12px]">Bem-vindo(a)</p>
                   </div>
                 </div>

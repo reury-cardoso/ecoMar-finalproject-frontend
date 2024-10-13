@@ -44,6 +44,8 @@ function Login() {
       }
 
       localStorage.setItem("token", response.data.token);
+      localStorage.setItem("user_id", response.data.user_id);
+      localStorage.setItem("name", response.data.name);
       notify("Login efetuado com sucesso!", "success");
       setLoading(false);
       const sleep = ms => new Promise(r => setTimeout(r, ms));
