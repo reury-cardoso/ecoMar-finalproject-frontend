@@ -8,12 +8,13 @@ import { notify } from "../../notifications";
 
 /* eslint-disable react/prop-types */
 function EditDeleteButton({ theSection, idElement }) {
-  const { deleteEvent, fetchEvent } = useContext(EventsContext);
-  const { deletePoint, fetchPoint } = useContext(PointsContext);
-  const { deleteUser, fetchUser } = useContext(UsersContext);
+  const { deleteEvent, fetchEvent, updateEvent } = useContext(EventsContext);
+  const { deletePoint, fetchPoint, updatePoint } = useContext(PointsContext);
+  const { deleteUser, fetchUser, updateUser } = useContext(UsersContext);
   const [isLoadingDelete, setIsLoadingDelete] = useState(false);
   const [isLoadingEdit, setIsLoadingEdit] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [onSubmitEntity, setOnSubmitEntity] = useState();
   const [data, setData] = useState({});
 
   const sectionDelete =
@@ -31,9 +32,21 @@ function EditDeleteButton({ theSection, idElement }) {
 
   const handleEdit = async (id) => {
     setIsLoadingEdit(true);
-    await fetchData(id);
-    setIsLoadingEdit(false);
-    setModalIsOpen(true);
+    try {
+      await fetchData(id);
+      const entityMap = {
+        events: updateEvent,
+        points: updatePoint,
+        default: updateUser,
+      };
+      const onSubmitEntity = entityMap[theSection] || entityMap.default;
+      setOnSubmitEntity(() => onSubmitEntity);
+      setModalIsOpen(true);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setIsLoadingEdit(false);
+    }
   };
 
   const sectionFetch =
@@ -75,14 +88,17 @@ function EditDeleteButton({ theSection, idElement }) {
           "Excluir"
         )}
       </button>
-      {modalIsOpen && <DynamicModal
-        mode={"edit"}
-        entity={theSection}
-        data={data}
-        idElement={idElement}
-        modalIsOpen={modalIsOpen}
-        setModalIsOpen={setModalIsOpen}
-      />}
+      {modalIsOpen && (
+        <DynamicModal
+          mode={"edit"}
+          entity={theSection}
+          data={data}
+          idElement={idElement}
+          modalIsOpen={modalIsOpen}
+          setModalIsOpen={setModalIsOpen}
+          onSubmit={onSubmitEntity}
+        />
+      )}
     </>
   );
 }

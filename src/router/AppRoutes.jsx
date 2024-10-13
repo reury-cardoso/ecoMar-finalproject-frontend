@@ -8,18 +8,24 @@ import Signup from "../pages/signup/signup";
 import Login from "../pages/login/login";
 import { AuthProvider } from "../context/authContext";
 import ProtectedRoute from "../security/protectedRouteAdmin";
+import { ProfileProvider } from "../context/profileContext";
 
 const AppRoutes = () => {
   return (
     <AuthProvider>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/events" element={<Events />} />
-        <Route path="/points" element={<Points />} />
-        <Route path="/admin" element={<ProtectedRoute element={<Admin />} adminOnly={true} />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
+      <ProfileProvider>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/points" element={<Points />} />
+          <Route
+            path="/admin"
+            element={<ProtectedRoute element={<Admin />} adminOnly={true} />}
+          />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </ProfileProvider>
     </AuthProvider>
   );
 };

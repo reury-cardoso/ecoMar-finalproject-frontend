@@ -1,13 +1,10 @@
 /* eslint-disable react/prop-types */
-import { useContext, useState } from "react";
+import { useState } from "react";
 import Modal from "react-modal";
 import PointsForm from "./forms/pointsForm";
 import UsersForm from "./forms/usersForm";
 import EventsForm from "./forms/eventsForm";
 import ModalHeader from "./modals/modalHeader";
-import { UsersContext } from "../../context/UsersContext";
-import { PointsContext } from "../../context/PointsContext";
-import { EventsContext } from "../../context/eventsContext";
 import { notify } from "../notifications";
 
 Modal.setAppElement("#root");
@@ -18,33 +15,28 @@ function DynamicModal({
   data,
   modalIsOpen,
   setModalIsOpen,
+  onSubmit
 }) {
   const formData = data || {};
   const [isClosing, setIsClosing] = useState(false);
 
-  const { addUser, updateUser } = useContext(UsersContext);
-  const { addPoint, updatePoint } = useContext(PointsContext);
-  const { addEvent, updateEvent } = useContext(EventsContext);
-
   const id = entity === "users" ? "user_id" : entity === "points" ? "point_id" : "event_id";
-
-  const onSubmitAdd = entity === "users" ? addUser : entity === "points" ? addPoint : addEvent;
-  const onSubmitEdit = entity === "users" ? updateUser : entity === "points" ? updatePoint : updateEvent;
 
   const handleSubmit = async (data) => {
     if (mode === "add") {
       try {
-        await onSubmitAdd(data);
+        await onSubmit(data);
         closeModal();
       } catch {
         notify("Erro ao enviar dados.", "error");
       }
     }else {
       try {
-        await onSubmitEdit(formData[id], data);
+        await onSubmit(formData[id], data);
         closeModal();
-      } catch {
+      } catch(e) {
         notify("Erro ao enviar dados.", "error");
+        console.log(e);
       }
     }
   };
