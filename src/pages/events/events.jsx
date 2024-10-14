@@ -14,7 +14,6 @@ const baseUrl = import.meta.env.VITE_URL_API;
 function Events() {
     const { events, addEvent } = useContext(EventsContext);
     const { isLogged } = useContext(AuthContext);
-    const [favoriteButton, setFavoriteButton] = useState(true);
     const [loading, setLoading] = useState(true);
     const [searchName, setSearchName] = useState("");
     const [selectedType, setSelectedType] = useState("newest");
@@ -89,10 +88,10 @@ function Events() {
     return (
         <main className="flex flex-col min-h-screen">
             <Header />
-            <section className="flex flex-col grow py-6 px-24 gap-4">
-                <h1 className="font-bold text-4xl text-gray-800">Eventos</h1>
-                <div className="flex justify-between mb-6">
-                    <div className="flex gap-4">
+            <section className="flex flex-col grow py-6 px-4 md:px-12 lg:px-24 gap-4">
+                <h1 className="font-bold text-3xl md:text-4xl text-gray-800">Eventos</h1>
+                <div className="flex flex-col md:flex-row justify-between mb-6 gap-4">
+                    <div className="flex flex-col md:flex-row gap-4">
                         <div className="bg-[#DEE3ED] rounded-xl p-3 flex items-center hover:bg-[#cfd6e4] transition-colors duration-200">
                             <MagnifyingGlassIcon className="w-6 h-6 text-[#7E7E7E] mr-2 hover:text-[#4A4A4A] transition-colors duration-200" />
                             <input
@@ -127,21 +126,6 @@ function Events() {
                                 ))}
                             </select>
                         </div>
-                        <div className="bg-[#DEE3ED] rounded-xl p-3 flex items-center gap-3 shadow-sm hover:bg-[#cfd6e4] transition-colors duration-200">
-                            <span className="text-[#82869A] font-medium">Favoritos:</span>
-                            <button
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    setFavoriteButton(!favoriteButton);
-                                }}
-                                className={`flex items-center justify-center transition duration-300 rounded-full p-1 border-2 ${
-                                    favoriteButton ? "bg-white border-[#333333]" : "bg-[#333333] border-white"
-                                } shadow-sm hover:shadow-md`}
-                            >
-                                <div className={`h-4 w-4 bg-[#333333] rounded-full transition-transform duration-300 transform ${favoriteButton ? "scale-100" : "scale-50"}`}></div>
-                                <div className={`h-4 w-4 bg-white rounded-full transition-transform duration-300 transform ${favoriteButton ? "scale-50" : "scale-100"}`}></div>
-                            </button>
-                        </div>
                     </div>
                     <button
                         onClick={() => {
@@ -151,7 +135,7 @@ function Events() {
                                 window.location.href = "/login";
                             }
                         }}
-                        className="bg-[#00A8A8] hover:bg-[#008B8B] text-white rounded-lg p-2 flex items-center transition duration-200"
+                        className="bg-[#00A8A8] hover:bg-[#008B8B] text-white rounded-lg p-2 flex items-center transition duration-200 justify-center"
                     >
                         <PlusCircleIcon className="h-8 w-8" />
                     </button>
@@ -162,7 +146,7 @@ function Events() {
                         <img src={loadingSvg} alt="Carregando..." className="w-16 h-16" />
                     </div>
                 ) : (
-                    <section className="grid grid-cols-5 gap-12 w-full">
+                    <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 w-full">
                         {filteredEvents.length > 0 ? (
                             filteredEvents.map((event) => (
                                 <DynamicEvents key={event.event_id} event={event} isLogged={isLogged} favorites={favorites} />

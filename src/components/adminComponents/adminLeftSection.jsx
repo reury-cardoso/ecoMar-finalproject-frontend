@@ -20,20 +20,20 @@ function AdminLeftSection() {
   return (
     <div
       id="leftSectionHeader"
-      className="w-[16%] flex flex-col text-center gap-4 p-8 fixed"
+      className="w-full md:w-[16%] flex flex-col text-center gap-4 p-4 md:p-8 relative bg-white shadow-lg md:shadow-none"
     >
       <div
         onClick={() => {
           fetchPoints();
           setCurrentSection("points");
         }}
-        className={`flex items-center gap-2 px-10 py-[.5rem] rounded-[8px] [transition:background-color_.3s] cursor-pointer ${
+        className={`flex items-center gap-2 px-6 py-2 md:px-10 md:py-[.5rem] rounded-lg transition duration-300 cursor-pointer ${
           currentSection === "points"
-            ? "!bg-[#0A2F51] !text-[#fff] hover:!bg-[#094883]"
-            : "hover:bg-[#f5f5f5]"
+            ? "bg-[#0A2F51] text-white hover:bg-[#094883]"
+            : "hover:bg-gray-100"
         }`}
       >
-        <MapPinIcon className="size-6 " />
+        <MapPinIcon className="h-6 w-6" />
         <span>Pontos</span>
       </div>
 
@@ -42,14 +42,14 @@ function AdminLeftSection() {
           fetchUsers();
           setCurrentSection("users");
         }}
-        className={`flex items-center gap-2 px-10 py-[.5rem] rounded-[8px] [transition:background-color_.3s] cursor-pointer  ${
+        className={`flex items-center gap-2 px-6 py-2 md:px-10 md:py-[.5rem] rounded-lg transition duration-300 cursor-pointer ${
           currentSection === "users"
-            ? "!bg-[#0A2F51] !text-[#fff] hover:!bg-[#094883]"
-            : "hover:bg-[#f5f5f5]"
+            ? "bg-[#0A2F51] text-white hover:bg-[#094883]"
+            : "hover:bg-gray-100"
         }`}
       >
-        <UserGroupIcon className="size-6 " />
-        <span>Usuário</span>
+        <UserGroupIcon className="h-6 w-6" />
+        <span>Usuários</span>
       </div>
 
       <div
@@ -57,13 +57,13 @@ function AdminLeftSection() {
           fetchEvents();
           setCurrentSection("events");
         }}
-        className={`flex items-center gap-2 px-10 py-[.5rem] rounded-[8px] [transition:background-color_.3s] cursor-pointer  ${
+        className={`flex items-center gap-2 px-6 py-2 md:px-10 md:py-[.5rem] rounded-lg transition duration-300 cursor-pointer ${
           currentSection === "events"
-            ? "!bg-[#0A2F51] !text-[#fff] hover:!bg-[#094883]"
-            : "hover:bg-[#f5f5f5]"
+            ? "bg-[#0A2F51] text-white hover:bg-[#094883]"
+            : "hover:bg-gray-100"
         }`}
       >
-        <SpeakerWaveIcon className="size-6 " />
+        <SpeakerWaveIcon className="h-6 w-6" />
         <span>Eventos</span>
       </div>
     </div>

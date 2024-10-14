@@ -15,7 +15,6 @@ export default function DynamicEvents({ event, isLogged, favorites }) {
     const [toggleHeartIcon, setToggleHeartIcon] = useState(false);
     const [favoriteId, setFavoriteId] = useState(null);
 
-    // Verifica se o evento está nos favoritos ao carregar o componente
     useEffect(() => {
         const isFavorited = favorites.find(fav => fav.event_id === event.event_id);
         if (isFavorited) {
@@ -27,7 +26,6 @@ export default function DynamicEvents({ event, isLogged, favorites }) {
     const handleToggleHeart = async () => {
         try {
             if (toggleHeartIcon) {
-                // Remove dos favoritos
                 await axios.delete(`${baseUrl}/api/favorites/${favoriteId}`, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -36,7 +34,6 @@ export default function DynamicEvents({ event, isLogged, favorites }) {
                 notify("Evento removido dos favoritos", "success");
                 setToggleHeartIcon(false);
             } else {
-                // Adiciona aos favoritos
                 const { data: newFavorite } = await axios.post(
                     `${baseUrl}/api/favorites`,
                     { event_id: event.event_id, user_id: localStorage.getItem("user_id") },
@@ -62,7 +59,7 @@ export default function DynamicEvents({ event, isLogged, favorites }) {
                     onClick={(e) => {
                         if (isLogged) {
                             e.preventDefault();
-                            handleToggleHeart(); // Chama a função para adicionar/remover favoritos
+                            handleToggleHeart();
                         } else {
                             window.location.href = "/login";
                         }

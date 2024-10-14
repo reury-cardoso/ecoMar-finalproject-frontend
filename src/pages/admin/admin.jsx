@@ -19,7 +19,7 @@ function Admin() {
     <>
       <Header />
       <CurrentSectionProvider>
-        <section id="sectionMain" className="w-full min-h-[89.5vh] flex">
+      <section id="sectionMain" className="w-full min-h-[89.5vh] flex flex-col md:flex-row">
           <EventsProvider>
             <PointsProvider>
               <UsersProvider>

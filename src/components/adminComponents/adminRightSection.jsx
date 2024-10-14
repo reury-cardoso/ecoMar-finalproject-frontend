@@ -60,18 +60,18 @@ function AdminRightSection() {
   return (
     <div
       id="rightSectionHeader"
-      className="w-[84%] bg-[#E0E5EC] p-[24px] ml-auto"
+      className="w-full md:w-[84%] bg-[#E0E5EC] p-4 md:p-[24px] ml-auto overflow-x-auto"
     >
-      <h1 className="font-bold text-[25px] text-gray-900">
+      <h1 className="font-bold text-xl md:text-[25px] text-gray-900">
         {currentSection === "users"
           ? "Usuários"
           : currentSection === "events"
           ? "Eventos"
           : "Pontos de Coleta"}
       </h1>
-      <div className="w-full my-[15px] bg-white border border-gray-400 rounded-md">
-        <div className="flex items-center  px-4 py-2">
-          <MagnifyingGlassIcon className="h-5 w-5 text-gray-600" />{" "}
+      <div className="w-full my-4 bg-white border border-gray-400 rounded-md">
+        <div className="flex items-center px-4 py-2">
+          <MagnifyingGlassIcon className="h-5 w-5 text-gray-600" />
           <input
             className="w-full pl-2 outline-none border-none text-gray-800 bg-transparent"
             type="text"
