@@ -9,7 +9,7 @@ import Login from "../pages/login/login";
 import { AuthProvider } from "../context/authContext";
 import ProtectedRoute from "../security/protectedRouteAdmin";
 import { ProfileProvider } from "../context/profileContext";
-import { PointsProvider } from "../context/PointsContext";
+import { PointsProvider } from "../context/pointsContext";
 import { EventsProvider } from "../context/EventsContext";
 
 const AppRoutes = () => {

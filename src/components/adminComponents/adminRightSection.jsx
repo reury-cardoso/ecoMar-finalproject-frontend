@@ -5,8 +5,8 @@ import AdminDataTableBodyEvents from "./events/adminDataTableBodyEvents";
 import { useContext, useEffect, useState } from "react";
 import { CurrentSectionContext } from "../../context/currentSectionContext";
 import { EventsContext } from "../../context/eventsContext.jsx";
-import { PointsContext } from "../../context/PointsContext.jsx";
-import { UsersContext } from "../../context/UsersContext.jsx";
+import { PointsContext } from "../../context/pointsContext.jsx";
+import { UsersContext } from "../../context/usersContext.jsx";
 import loadingSvg from "../../assets/tubeSpinnerNigth.svg";
 
 function AdminRightSection() {

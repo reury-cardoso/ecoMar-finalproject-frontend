@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { EventsContext } from "../../../context/eventsContext";
-import { PointsContext } from "../../../context/PointsContext";
-import { UsersContext } from "../../../context/UsersContext";
+import { PointsContext } from "../../../context/pointsContext";
+import { UsersContext } from "../../../context/usersContext";
 import loadingSvg from "../../../assets/tubeSpinner.svg";
 import DynamicModal from "../../dynamicModal/dynamicModal";
 import { notify } from "../../notifications";

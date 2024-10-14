@@ -5,7 +5,7 @@ import {
     PlusCircleIcon,
     MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
-import { PointsContext } from "../../context/PointsContext";
+import { PointsContext } from "../../context/pointsContext";
 import loadingSvg from "../../assets/tubeSpinner.svg"; 
 import DynamicModal from "../../components/dynamicModal/dynamicModal";
 import { notify } from "../../components/notifications";
