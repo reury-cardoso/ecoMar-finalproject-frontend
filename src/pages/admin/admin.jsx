@@ -3,7 +3,7 @@ import AdminLeftSection from "../../components/adminComponents/adminLeftSection"
 import AdminRightSection from "../../components/adminComponents/adminRightSection";
 import CurrentSectionProvider from "../../context/currentSectionContext";
 import { EventsProvider } from "../../context/eventsContext";
-import { PointsProvider } from "../../context/pointsContext";
+import { PointsProvider } from "../../context/PointsContext";
 import { UsersProvider } from "../../context/usersContext";
 import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";

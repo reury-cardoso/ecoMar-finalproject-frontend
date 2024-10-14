@@ -5,7 +5,7 @@ import AdminDataTableBodyEvents from "./events/adminDataTableBodyEvents";
 import { useContext, useEffect, useState } from "react";
 import { CurrentSectionContext } from "../../context/currentSectionContext.jsx";
 import { EventsContext } from "../../context/eventsContext.jsx";
-import { PointsContext } from "../../context/pointsContext.jsx";
+import { PointsContext } from "../../context/PointsContext.jsx";
 import { UsersContext } from "../../context/usersContext.jsx";
 import loadingSvg from "../../assets/tubeSpinnerNigth.svg";
 

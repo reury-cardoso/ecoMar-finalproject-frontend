@@ -9,7 +9,7 @@ import ProtectedRoute from "../security/protectedRouteAdmin";
 import { AuthProvider } from "../context/authContext";
 import { ProfileProvider } from "../context/profileContext";
 import { EventsProvider } from "../context/eventsContext";
-import { PointsProvider } from "../context/pointsContext";
+import { PointsProvider } from "../context/PointsContext";
 
 
 const AppRoutes = () => {
