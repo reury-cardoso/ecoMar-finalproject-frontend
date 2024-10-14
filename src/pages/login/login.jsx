@@ -2,7 +2,7 @@
 import { useContext, useEffect, useState } from "react";
 import Header from "../../components/header/header";
 import axios from "axios";
-import { AuthContext } from "../../context/authContext";
+import { AuthContext } from "../../context/AuthContext";
 import { notify } from "../../components/notifications";
 import loadingSvg from "../../assets/tubeSpinner.svg";
 

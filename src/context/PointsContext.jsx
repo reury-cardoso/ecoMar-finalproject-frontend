@@ -2,7 +2,7 @@
 import { createContext, useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { notify } from "../components/notifications";
-import { AuthContext } from "./authContext";
+import { AuthContext } from "./AuthContext";
 
 const baseUrl = import.meta.env.VITE_URL_API;
 

@@ -6,11 +6,11 @@ import Points from "../pages/points/points";
 import Admin from "../pages/admin/admin";
 import Signup from "../pages/signup/signup";
 import Login from "../pages/login/login";
-import { AuthProvider } from "../context/authContext";
+import { AuthProvider } from "../context/AuthContext";
 import ProtectedRoute from "../security/protectedRouteAdmin";
-import { ProfileProvider } from "../context/profileContext";
-import { PointsProvider } from "../context/pointsContext";
-import { EventsProvider } from "../context/eventsContext";
+import { ProfileProvider } from "../context/ProfileContext";
+import { PointsProvider } from "../context/PointsContext";
+import { EventsProvider } from "../context/EventsContext";
 
 
 const AppRoutes = () => {

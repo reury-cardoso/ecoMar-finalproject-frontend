@@ -5,11 +5,11 @@ import {
     PlusCircleIcon,
     MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
-import { PointsContext } from "../../context/pointsContext";
+import { PointsContext } from "../../context/PointsContext";
 import loadingSvg from "../../assets/tubeSpinner.svg"; 
 import DynamicModal from "../../components/dynamicModal/dynamicModal";
 import { notify } from "../../components/notifications";
-import { AuthContext } from "../../context/authContext";
+import { AuthContext } from "../../context/AuthContext";
 
 function Points() {
     const { points, addPoint } = useContext(PointsContext);

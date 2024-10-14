@@ -3,7 +3,7 @@ import DynamicEvents from "../../components/dynamicEvents";
 import { useContext, useState, useEffect } from "react";
 import { PlusCircleIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { EventsContext } from "../../context/EventsContext";
-import { AuthContext } from "../../context/authContext";
+import { AuthContext } from "../../context/AuthContext";
 import loadingSvg from "../../assets/tubeSpinner.svg";
 import DynamicModal from "../../components/dynamicModal/dynamicModal";
 import { notify } from "../../components/notifications";

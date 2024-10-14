@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useContext, useState } from "react";
-import { EventsContext } from "../../../context/eventsContext";
-import { PointsContext } from "../../../context/pointsContext";
+import { EventsContext } from "../../../context/EventsContext";
+import { PointsContext } from "../../../context/PointsContext";
 import loadingSvg from "../../../assets/tubeSpinner.svg";
 
 function ApproveRejectButton({ theSection, idElement }) {

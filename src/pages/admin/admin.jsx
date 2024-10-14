@@ -1,12 +1,12 @@
 import Header from "../../components/header/header";
 import AdminLeftSection from "../../components/adminComponents/adminLeftSection";
 import AdminRightSection from "../../components/adminComponents/adminRightSection";
-import CurrentSectionProvider from "../../context/currentSectionContext";
-import { EventsProvider } from "../../context/eventsContext";
-import { PointsProvider } from "../../context/pointsContext";
-import { UsersProvider } from "../../context/usersContext";
+import CurrentSectionProvider from "../../context/CurrentSectionContext";
+import { EventsProvider } from "../../context/EventsContext";
+import { PointsProvider } from "../../context/PointsContext";
+import { UsersProvider } from "../../context/UsersContext";
 import { useContext } from "react";
-import { AuthContext } from "../../context/authContext";
+import { AuthContext } from "../../context/AuthContext";
 
 function Admin() {
   const { isAdmin } = useContext(AuthContext);
