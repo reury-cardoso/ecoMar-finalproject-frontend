@@ -4,7 +4,7 @@ import AdminRightSection from "../../components/adminComponents/adminRightSectio
 import CurrentSectionProvider from "../../context/currentSectionContext";
 import { EventsProvider } from "../../context/eventsContext";
 import { PointsProvider } from "../../context/PointsContext";
-import { UsersProvider } from "../../context/usersContext";
+import { UsersProvider } from "../../context/UsersContext";
 import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
 

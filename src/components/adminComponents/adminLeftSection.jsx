@@ -7,7 +7,7 @@ import { useContext } from "react";
 import { CurrentSectionContext } from "../../context/currentSectionContext";
 import { EventsContext } from "../../context/eventsContext";
 import { PointsContext } from "../../context/PointsContext";
-import { UsersContext } from "../../context/usersContext";
+import { UsersContext } from "../../context/UsersContext";
 
 function AdminLeftSection() {
   const { currentSection, setCurrentSection } = useContext(

@@ -6,7 +6,7 @@ import { useContext, useEffect, useState } from "react";
 import { CurrentSectionContext } from "../../context/currentSectionContext.jsx";
 import { EventsContext } from "../../context/eventsContext.jsx";
 import { PointsContext } from "../../context/PointsContext.jsx";
-import { UsersContext } from "../../context/usersContext.jsx";
+import { UsersContext } from "../../context/UsersContext.jsx";
 import loadingSvg from "../../assets/tubeSpinnerNigth.svg";
 
 function AdminRightSection() {
