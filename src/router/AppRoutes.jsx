@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-
 import Home from "../pages/home/home";
 import Events from "../pages/events/events";
 import Points from "../pages/points/points";
@@ -10,7 +9,7 @@ import ProtectedRoute from "../security/protectedRouteAdmin";
 import { AuthProvider } from "../context/authContext";
 import { ProfileProvider } from "../context/profileContext";
 import { EventsProvider } from "../context/eventsContext";
-import { PointsProvider } from "src/context/pointsContext.jsx";
+import { PointsProvider } from "../context/pointsContext";
 
 
 const AppRoutes = () => {

@@ -1,5 +1,4 @@
 import Header from "../../components/header/header";
-import imgMain from "../../../public/image/img-main.svg";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -55,7 +54,7 @@ useEffect(() => {
                 </div>
                 <div className="lg:w-2/5 flex justify-center lg:justify-center pt-8">
                     <img
-                        src={imgMain}
+                        src={'/image/img-main.svg'}
                         alt="Imagem de coleta de lixo marítimo"
                         className="hidden lg:block w-full max-w-md h-auto"
                     />
