@@ -6,10 +6,52 @@ import {
   ClockIcon,
 } from "@heroicons/react/24/outline";
 import { HeartIcon as SolidHeartIcon } from "@heroicons/react/24/solid";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { notify } from "./notifications";
 
-export default function DynamicPoints({ point, isLogged }) {
+const baseUrl = import.meta.env.VITE_URL_API;
+
+export default function DynamicPoints({ point, isLogged, favorites }) {
   const [toggleHeartIcon, setToggleHeartIcon] = useState(false);
+  const [favoriteId, setFavoriteId] = useState(null);
+
+  useEffect(() => {
+    const isFavorited = favorites.find((fav) => fav.point_id === point.point_id);
+    if (isFavorited) {
+      setToggleHeartIcon(true);
+      setFavoriteId(isFavorited.favorite_id);
+    }
+  }, [favorites, point]);
+
+  const handleToggleHeart = async () => {
+    try {
+      if (toggleHeartIcon) {
+        await axios.delete(`${baseUrl}/api/favorites/${favoriteId}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+        notify("Ponto removido dos favoritos", "success");
+        setToggleHeartIcon(false);
+      } else {
+        const { data: newFavorite } = await axios.post(
+          `${baseUrl}/api/favorites`,
+          { point_id: point.point_id, user_id: localStorage.getItem("user_id") },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        notify("Ponto adicionado aos favoritos", "success");
+        setFavoriteId(newFavorite.favorite_id);
+        setToggleHeartIcon(true);
+      }
+    } catch {
+      notify("Erro ao alterar favoritos", "error");
+    }
+  };
 
   return (
     <div className="bg-[#DEE3ED] rounded-lg">
@@ -18,7 +60,7 @@ export default function DynamicPoints({ point, isLogged }) {
           onClick={(e) => {
             if (isLogged) {
               e.preventDefault();
-              setToggleHeartIcon(!toggleHeartIcon);
+              handleToggleHeart(); 
             } else {
               window.location.href = "/login";
             }

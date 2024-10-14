@@ -7,6 +7,9 @@ import { AuthContext } from "../../context/authContext";
 import loadingSvg from "../../assets/tubeSpinner.svg";
 import DynamicModal from "../../components/dynamicModal/dynamicModal";
 import { notify } from "../../components/notifications";
+import axios from "axios";
+
+const baseUrl = import.meta.env.VITE_URL_API;
 
 function Events() {
     const { events, addEvent } = useContext(EventsContext);
@@ -17,6 +20,7 @@ function Events() {
     const [selectedType, setSelectedType] = useState("newest");
     const [selectedLocation, setSelectedLocation] = useState("");
     const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [favorites, setFavorites] = useState([]);
 
     const openModal = () => {
         setModalIsOpen(true);
@@ -36,6 +40,21 @@ function Events() {
     };
 
     useEffect(() => {
+        const fetchFavorites = async () => {
+            if (isLogged) {
+                const response = await axios.get(`${baseUrl}/api/favorites`, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                });
+                setFavorites(response.data);
+            }
+        };
+
+        fetchFavorites();
+    }, [isLogged]);
+
+    useEffect(() => {
         if (events.length > 0 || events.length === 0) {
             setLoading(false);
         }
@@ -44,7 +63,8 @@ function Events() {
     const uniqueLocations = Array.from(
         new Set(events
             .filter(event => event.status === 'approved') 
-            .map(event => event.location)));
+            .map(event => event.location))
+    );
 
     const sortEvents = (eventsList) => {
         return eventsList.sort((a, b) => {
@@ -145,7 +165,7 @@ function Events() {
                     <section className="grid grid-cols-5 gap-12 w-full">
                         {filteredEvents.length > 0 ? (
                             filteredEvents.map((event) => (
-                                <DynamicEvents key={event.event_id} event={event} isLogged={isLogged} />
+                                <DynamicEvents key={event.event_id} event={event} isLogged={isLogged} favorites={favorites} />
                             ))
                         ) : (
                             <div className="text-center text-[#82869A] text-2xl col-span-5">

@@ -5,23 +5,68 @@ import {
     CalendarIcon,
 } from "@heroicons/react/24/outline";
 import { HeartIcon as SolidHeartIcon } from "@heroicons/react/24/solid";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { notify } from "./notifications";
 
-export default function DynamicEvents({event, isLogged}) {
+const baseUrl = import.meta.env.VITE_URL_API;
+
+export default function DynamicEvents({ event, isLogged, favorites }) {
     const [toggleHeartIcon, setToggleHeartIcon] = useState(false);
+    const [favoriteId, setFavoriteId] = useState(null);
+
+    // Verifica se o evento está nos favoritos ao carregar o componente
+    useEffect(() => {
+        const isFavorited = favorites.find(fav => fav.event_id === event.event_id);
+        if (isFavorited) {
+            setToggleHeartIcon(true);
+            setFavoriteId(isFavorited.favorite_id);
+        }
+    }, [favorites, event]);
+
+    const handleToggleHeart = async () => {
+        try {
+            if (toggleHeartIcon) {
+                // Remove dos favoritos
+                await axios.delete(`${baseUrl}/api/favorites/${favoriteId}`, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                });
+                notify("Evento removido dos favoritos", "success");
+                setToggleHeartIcon(false);
+            } else {
+                // Adiciona aos favoritos
+                const { data: newFavorite } = await axios.post(
+                    `${baseUrl}/api/favorites`,
+                    { event_id: event.event_id, user_id: localStorage.getItem("user_id") },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem("token")}`,
+                        },
+                    }
+                );
+                notify("Evento adicionado aos favoritos", "success");
+                setFavoriteId(newFavorite.favorite_id);
+                setToggleHeartIcon(true);
+            }
+        } catch {
+            notify("Erro ao alterar favoritos", "error");
+        }
+    };
 
     return (
         <div className="bg-[#DEE3ED] rounded-lg">
             <div className="flex justify-end w-full">
                 <button
-                        onClick={(e) => {
-                            if (isLogged) {
+                    onClick={(e) => {
+                        if (isLogged) {
                             e.preventDefault();
-                            setToggleHeartIcon(!toggleHeartIcon);
-                            } else {
+                            handleToggleHeart(); // Chama a função para adicionar/remover favoritos
+                        } else {
                             window.location.href = "/login";
-                            }
-                        }}
+                        }
+                    }}
                     className="bg-[#EDEFF6] p-1"
                 >
                     {toggleHeartIcon ? (
