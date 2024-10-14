@@ -24,6 +24,7 @@ function DynamicModal({
   const id = entity === "users" ? "user_id" : entity === "points" ? "point_id" : "event_id";
 
   const handleSubmit = async (data) => {
+    console.log(data, mode);
     if (mode === "add") {
       try {
         await onSubmit(data);
@@ -53,12 +54,12 @@ function DynamicModal({
   const renderFormFields = () => {
     switch (entity) {
       case "points":
-        return <PointsForm formData={formData} mode={mode} onCancel={closeModal} onSubmit={handleSubmit}/>;
+        return <PointsForm limit={limit} formData={formData} mode={mode} onCancel={closeModal} onSubmit={handleSubmit}/>;
       case "users":
         return <UsersForm limit={limit} formData={formData} mode={mode} onCancel={closeModal} onSubmit={handleSubmit}/>;
       case "events":
       default:
-        return <EventsForm formData={formData} mode={mode} onCancel={closeModal} onSubmit={handleSubmit}/>;
+        return <EventsForm limit={limit} formData={formData} mode={mode} onCancel={closeModal} onSubmit={handleSubmit}/>;
     }
   };
 

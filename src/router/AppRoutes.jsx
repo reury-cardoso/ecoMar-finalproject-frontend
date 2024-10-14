@@ -9,6 +9,8 @@ import Login from "../pages/login/login";
 import { AuthProvider } from "../context/authContext";
 import ProtectedRoute from "../security/protectedRouteAdmin";
 import { ProfileProvider } from "../context/profileContext";
+import { PointsProvider } from "../context/PointsContext";
+import { EventsProvider } from "../context/EventsContext";
 
 const AppRoutes = () => {
   return (
@@ -16,8 +18,21 @@ const AppRoutes = () => {
       <ProfileProvider>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/events" element={<Events />} />
-          <Route path="/points" element={<Points />} />
+          <Route path="/events" element={
+            <EventsProvider>
+              <Events />
+            </EventsProvider>
+          } />
+
+          <Route
+            path="/points"
+            element={
+              <PointsProvider>
+                <Points />
+              </PointsProvider>
+            }
+          />
+
           <Route
             path="/admin"
             element={<ProtectedRoute element={<Admin />} adminOnly={true} />}

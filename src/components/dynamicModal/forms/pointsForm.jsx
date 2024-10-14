@@ -9,7 +9,7 @@ const inputBaseClasses =
   const commonDivClasses = "mb-6";
 
 /* eslint-disable react/prop-types */
-function PointsForm({ formData, mode, onCancel, onSubmit }) {
+function PointsForm({ formData, mode, onCancel, onSubmit, limit }) {
   const [name, setName] = useState(formData.name || "");
   const [location, setLocation] = useState(formData.location || "");
   const [waste_type, setWasteType] = useState(formData.waste_type || "");
@@ -18,12 +18,19 @@ function PointsForm({ formData, mode, onCancel, onSubmit }) {
 
   const handleSubmit = async () => {
     try {
-      if (!name || !location || !waste_type || !operating_hours || !status) {
+      if (!name || !location || !waste_type || !operating_hours) {
         notify("Preencha todos os campos.", "error");
         return;
       }
-      await onSubmit({ name, location, waste_type, operating_hours, status });
-    } catch {
+      await onSubmit({ 
+        name, 
+        location, 
+        waste_type, 
+        operating_hours, 
+        ...(status && { status })
+      });
+    } catch(e) {
+      console.log(e);
       notify("Erro ao enviar dados.", "error");
     }
   };
@@ -84,7 +91,7 @@ function PointsForm({ formData, mode, onCancel, onSubmit }) {
               placeholder="Digite o horário"
             />
           </div>
-          <div className={commonDivClasses}>
+          {limit !== 1 && <div className={commonDivClasses}>
             <label className="block text-sm font-medium text-gray-700">
               Status
             </label>
@@ -98,7 +105,7 @@ function PointsForm({ formData, mode, onCancel, onSubmit }) {
               <option value="pending">Pendente</option>
               <option value="pending">Rejeitado</option>
             </select>
-          </div>
+          </div>}
         </div>
       </div>
       <ModalFooter mode={mode} onCancel={onCancel} onSubmit={handleSubmit} />

@@ -9,21 +9,22 @@ const inputPaddingClasses = "py-2 px-4";
 const commonDivClasses = "mb-6";
 
 /* eslint-disable react/prop-types */
-function EventsForm({ formData, mode, onCancel, onSubmit }) {
+function EventsForm({ formData, mode, onCancel, onSubmit, limit }) {
   const [name, setName] = useState(formData.name || "");
   const [description, setDescription] = useState(formData.description || "");
   const [date, setDate] = useState(formData.date || "");
   const [location, setLocation] = useState(formData.location || "");
-  const [event_type, setEventType] = useState(formData.event_type || "");
+  const [event_type, setEventType] = useState(formData.event_type || "mutirão");
   const [status, setStatus] = useState(formData.status || "");
 
   const handleSubmit = async () => {
     try {
-      if (!name || !description || !date || !location || !event_type || !status) {
+      if (!name || !description || !date || !location || !event_type ) {
         notify("Preencha todos os campos.", "error");
+        console.log({ name, description, date, location, event_type });
         return;
       }
-      await onSubmit({ name, description, date, location, event_type, status });
+      await onSubmit({ name, description, date, location, event_type, ...(status && { status }) });
     } catch {
       notify("Erro ao enviar dados.", "error");
     }
@@ -93,12 +94,12 @@ function EventsForm({ formData, mode, onCancel, onSubmit }) {
               onChange={(e) => setEventType(e.target.value)}
               className={`${inputBaseClasses} ${inputFocusClasses} ${inputPaddingClasses}`}
             >
-              <option value="festa">Festa</option>
-              <option value="coleta">Coleta</option>
-              <option value="reuniao">Reunião</option>
+              <option value="mutirão">Mutirão</option>
+              <option value="educativo">Educativo</option>
+              <option value="congresso">Congresso</option>
             </select>
           </div>
-          <div className={commonDivClasses}>
+          {limit !== 1 && <div className={commonDivClasses}>
             <label className="block text-sm font-medium text-gray-700">
               Status
             </label>
@@ -112,7 +113,7 @@ function EventsForm({ formData, mode, onCancel, onSubmit }) {
               <option value="pending">Pendente</option>
               <option value="pending">Rejeitado</option>
             </select>
-          </div>
+          </div>}
         </div>
       </div>
 
