@@ -2,8 +2,8 @@ import { useState, useEffect, useRef, useContext } from "react";
 import AdminMenu from "../adminMenu";
 import logo from "/marreco.svg";
 import LoginButton from "./loginButton/loginButton";
-import { AuthContext } from "../../context/AuthContext";
-import { ProfileContext } from "../../context/ProfileContext";
+import { AuthContext } from "../../context/authContext";
+import { ProfileContext } from "../../context/profileContext";
 import DynamicModal from "../dynamicModal/dynamicModal";
 
 function Header() {

@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import Header from "../../components/header/header";
 import { notify } from "../../components/notifications";
 import axios from "axios";
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "../../context/authContext";
 import loadingSvg from "../../assets/tubeSpinner.svg";
 
 const baseUrl = import.meta.env.VITE_URL_API;

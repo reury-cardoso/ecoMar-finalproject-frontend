@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../context/authContext";
 
 function AdminMenu({openModal}) {
   const { setToken, isAdmin } = useContext(AuthContext);
