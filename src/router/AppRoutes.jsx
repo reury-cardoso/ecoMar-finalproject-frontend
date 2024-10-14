@@ -7,10 +7,10 @@ import Admin from "../pages/admin/admin";
 import Signup from "../pages/signup/signup";
 import Login from "../pages/login/login";
 import ProtectedRoute from "../security/protectedRouteAdmin";
-import { AuthProvider } from "../context/authContext.jsx";
-import { ProfileProvider } from "../context/profileContext.jsx";
-import { EventsProvider } from "../context/eventsContext.jsx";
-import { PointsProvider } from "../context/pointsContext.jsx";
+import { AuthProvider } from "../context/authContext";
+import { ProfileProvider } from "../context/profileContext";
+import { EventsProvider } from "../context/eventsContext";
+import { PointsProvider } from "src/context/pointsContext.jsx";
 
 
 const AppRoutes = () => {
