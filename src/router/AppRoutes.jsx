@@ -10,7 +10,8 @@ import { AuthProvider } from "../context/authContext";
 import ProtectedRoute from "../security/protectedRouteAdmin";
 import { ProfileProvider } from "../context/profileContext";
 import { PointsProvider } from "../context/pointsContext";
-import { EventsProvider } from "../context/EventsContext";
+import { EventsProvider } from "../context/eventsContext";
+
 
 const AppRoutes = () => {
   return (
